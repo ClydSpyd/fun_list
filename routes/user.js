@@ -5,23 +5,22 @@ const User = require("../models/userModel")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
-// @route     GET api/users
+// @route     GET api/user
 // @desc      test route
 // @@access   public
 router.get('/', (req, res) => {
     res.send('USER');
 })
 
-// @route     GET api/users/get_all
-// @desc      return all users
+// @route     GET api/user/get_all
+// @desc      return all user
 // @@access   public
 router.get('/get_all', async (req, res) => {
     const users = await User.find();
     return res.json(users)
 })
 
-
-// @route     POST api/users
+// @route     POST api/user
 // @desc      register user
 // @@access   public
 router.post('/create', [
@@ -31,7 +30,6 @@ router.post('/create', [
 
   const errors = validationResult(req);
   if(!errors.isEmpty()) return res.status(400).json({ errors: errors.array().map(({msg, param}) => ({msg, param})) })
-
   
   try {
       
