@@ -1,0 +1,19 @@
+{
+  "name": "fun_list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.6.0",
+    "expres": "^0.0.5",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  }
+}
