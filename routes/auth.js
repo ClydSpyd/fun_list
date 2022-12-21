@@ -17,26 +17,23 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res
-        .status(400)
-        .json({
+      return res.json({
           errors: errors.array().map(({ msg, param }) => ({ msg, param })),
         });
     }
 
-    const { userName, password } = req.query;
+    const { userName, password } = req.body;
     console.log(userName)
-    console.log(password)
 
     try {
       let userObj = await User.findOne({userName});
     //   let userObj = await User.findOne({userName}).lean();
       
       if (!userObj) {
-        return res.status(400).json({
+        return res.json({
           errors: [
             {
-              msg: "Invalid Credentials",
+              msg: "Invalid Credentials1",
             },
           ],
         });
@@ -45,10 +42,10 @@ router.post(
       const isMatch = await bcrypt.compare(password, userObj.password);
 
       if (!isMatch) {
-        return res.status(400).json({
+        return res.json({
           errors: [
             {
-              msg: "Invalid Credentials",
+              msg: "Invalid Credentials2",
             },
           ],
         });
