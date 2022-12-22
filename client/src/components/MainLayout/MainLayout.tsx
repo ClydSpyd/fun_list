@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext"
-import Home from "../../pages/Home/Home";
+import Home from "../../views/Home/Home";
 import NavBar from "../NavBar/NavBar";
 import './MainLayout.scss';
 

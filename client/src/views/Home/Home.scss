@@ -1,0 +1,42 @@
+@import '../../styles/main.scss';
+
+.home{
+    height: calc(100vh - 50px);
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+    border: 3px solid #ffffff;
+
+    .sidebar{
+        width: 400px;
+        border-radius: 19px;
+        background-color: #E6E6E6;
+        position: absolute;
+        height: 100%;
+        left: -356px;
+        transition: .9s cubic-bezier(0.44,-0.34, 0.56, 1) all;
+        
+        &.open{
+            left: -40px;
+            // transition: .9s cubic-bezier(0.44,-0.34, 0.56, 1.49) all;
+        }
+
+        .handle{
+            position: absolute;
+            top: 50%;
+            left: calc(100% - 25px);
+            transform: translateY(-50%);
+            height: 35px;
+            width: 35px;
+            border-radius: 50%;
+            background-color: $main_orange;
+            color: #ffffff;
+            font-size: 25px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+    }
+}
