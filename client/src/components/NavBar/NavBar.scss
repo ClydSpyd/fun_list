@@ -1,0 +1,51 @@
+@import '../../styles/main.scss';
+
+.nav-bar{
+    height: 40px;
+    width: 100%;
+    background-color: #E6E6E6;
+    // border-bottom: 2px solid $main_orange;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    box-sizing: border-box;
+    position: relative;
+
+    h6{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+    }
+
+    .nav-items{
+        display: flex;
+        position: relative;
+        left: 10px;
+
+        .nav-item{
+           font-size: 16px;
+        //    text-transform: uppercase;
+           width: 80px;
+           margin: 0;
+           color: $main_pink;
+           text-align: center; 
+           font-weight: 900;
+           cursor: pointer;
+        }
+    }
+
+    button{
+        height: 30px;
+        width: 100px;
+        color: #ffffff;
+        background-color: $main_pink;
+        transition: .25s all ease-out;
+        border-radius: 3px;
+        &:hover{
+            background-color: $main_orange;
+        }
+    }
+}

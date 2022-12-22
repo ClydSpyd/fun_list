@@ -1,24 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./styles/index.css";
+import "./styles/main.scss";
 import { AuthContextProvider } from "./context/AuthContext";
-import Home from "./pages/home/Home";
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
+import App from "./App";
+const queryClient = new QueryClient() 
 
-function App() {
-  return (
-    <div className="App">
-      <Home />
-    </div>
-  );
-}
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <AuthContextProvider>
-    <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
       <App />
-    </React.StrictMode>
+    </QueryClientProvider>
   </AuthContextProvider>
 );

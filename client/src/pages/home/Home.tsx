@@ -1,14 +1,23 @@
-import React from 'react'
-import LoginForm from '../../components/LoginForm';
-import { useAuth } from "../../context/AuthContext";
-import logo from "../../logo.svg";
+import { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import './Home.scss';
 
 const Home = () => {
+    const [ sidebarOpen, toggleSidebar ] = useState(false)
+    const { isAuthenticated } = useAuth();
+
+    useEffect(()=> {
+        if(!isAuthenticated) toggleSidebar(false)
+    },[isAuthenticated])
+
   return (
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <LoginForm />
-    </header>
+    <div className='home'>
+        <div className={`sidebar ${sidebarOpen && 'open'}`}>
+            <div className="handle" onClick={()=>toggleSidebar(!sidebarOpen)}>
+                {`>`}
+            </div>
+        </div>
+    </div>
   )
 }
 

@@ -1,0 +1,15 @@
+@import '../../styles/main.scss';
+
+.main-layout{
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: $main_transition ease-out opacity;
+
+    &.loggedIn{
+        opacity: 1;
+        pointer-events: all;
+    }
+}

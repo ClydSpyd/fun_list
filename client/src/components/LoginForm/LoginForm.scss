@@ -1,0 +1,51 @@
+@import '../../styles/main.scss';
+
+.login-form-wrapper{
+    display: flex;
+    align-items: center;
+    opacity: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: $main_transition ease-out opacity;
+    
+    &.loggedIn{
+        opacity: 0;
+        pointer-events: none;
+    }
+    
+    form{
+        position: relative;
+        top:-5px;
+
+        input{
+            width: 145px;
+            height: 25px;
+            margin-right: 5px;
+            outline: none;
+            border: 1px solid rgb(214, 214, 214);
+            border-radius: 3px;
+            padding: 15px 5px;
+            box-sizing: border-box;
+            
+            &:focus{
+                border:1px solid $main_orange;
+            }
+        }
+
+        button{
+            height: 30px;
+            width: 50px;
+            background-color: $main_pink;
+            color: #ffffff;
+            transition: .25s all ease-out;
+            border-radius: 3px;
+            &:hover{
+                background-color: $main_orange;
+
+            }
+        }
+    }
+
+}

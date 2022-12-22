@@ -1,0 +1,60 @@
+@import './animations.scss';
+@import './variables.scss';
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,300;0,500;0,700;0,900;1,100;1,300;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+@font-face{
+    font-family: "retro";
+    src: url("../assets/fonts/m12.TTF") format("truetype");
+  }
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+button{
+    border: none;
+    cursor: pointer;
+}
+
+.retro{
+    font-family: 'retro';
+    color: $main_pink;
+}
+
+.app-wrapper {
+    background-color: #ffffff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    overflow: hidden;
+    
+}
+
+.box-image {
+    height: 90px;
+    animation: spin infinite 6s linear;
+    margin-right: 20px;
+}
+
+h4{
+    margin: 0 0;
+    font-size: 34px;
+}
+
+p{
+    margin: 0;
+    color: $main_orange;
+    font-size: 16px;
+    font-weight: 700;
+}
+  
