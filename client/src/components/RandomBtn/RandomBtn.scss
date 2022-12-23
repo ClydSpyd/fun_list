@@ -1,0 +1,29 @@
+@import '../../styles/main.scss';
+
+.button-container{
+    position: absolute;
+    bottom:40px;
+    right: 40px;
+    height: 100px;
+    width: 100px;
+    border: 3px solid $main_pink;
+    background-color: $main_pink;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-box-shadow: 2px 2px 3px 1px #000000; 
+    box-shadow: 2px 2px 3px 1px #000000;
+    transform: rotate(0);
+
+    img{
+        height: 80px;
+    }
+
+    &:hover{
+        img{
+            animation: spin infinite 6s linear;
+        }
+    }
+}

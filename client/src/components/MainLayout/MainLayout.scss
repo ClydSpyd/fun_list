@@ -6,6 +6,7 @@
     margin: 0px auto;
     opacity: 0;
     pointer-events: none;
+    position: relative;
     transition: $main_transition ease-out opacity;
 
     &.loggedIn{

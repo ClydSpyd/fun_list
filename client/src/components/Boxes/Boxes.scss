@@ -1,0 +1,126 @@
+@import '../../styles/main.scss';
+
+.boxes-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
+    box-sizing: border-box;
+    padding-top: 20px;
+
+    .tabs-bar{
+        display: flex;
+        justify-content: space-between;
+
+        .tabs{
+            display: flex;
+            height: 40px;
+
+            .tab{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 40px;
+                width: 100px;
+                border: 1px solid #858585;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                font-size: 1rem;
+                margin-right: 5px;
+                cursor: pointer;
+
+                &.new{
+                    width: 40px;
+                    font-size: 1.5rem;
+                }
+
+                &.main{
+                    border: 1px solid $main_orange;
+                    background-color: $main_orange;
+                    color: #ffffff;
+                    text-decoration: underline;
+                    pointer-events: none;
+                }
+
+                &:hover{
+                    border-color: $main_pink;
+                    color: $main_pink;
+                }
+            }
+        }
+
+        .new-item{
+            width: 150px;
+            height: 40px;
+            background-color: $main_pink;
+            border: 2px solid $main_pink;
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: .3s linear all;
+
+            span{
+                margin-left: 5px;
+                font-size: 30px;
+            }
+
+            &:hover{
+                border-color: $main_orange;
+            }
+        }
+    }
+    
+    .list-container{
+        width: 100%;
+        border: 2px solid #E6E6E6;
+        box-sizing: border-box;
+        flex-grow: 1;
+        margin: 10px 0;
+
+        .header{
+            padding: 20px 20px 10px 0px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            flex-grow: 1;
+            margin: 0 20px;
+            border-bottom: 1px solid $main_orange;
+
+            .title{
+                color: #858585;
+                font-size: 20px;
+            }
+        }
+    }
+
+    .list{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 5px 20px;
+    }
+    .item{
+        height: 90px;
+        box-sizing: border-box;
+        padding: 20px 30px;
+        width: 100%;
+        flex-grow: 1;
+        display: flex;
+        background-color: #f8f8f8;
+        border-radius: 6px;
+        border: 1px solid #f8f8f8;
+        margin: 10px 0;
+        font-size: 10px;
+        color: $main_pink;
+        transition: all .3s linear;
+        cursor: pointer;
+
+        &:hover{
+            border-color: $main_pink;
+        }
+    }
+}

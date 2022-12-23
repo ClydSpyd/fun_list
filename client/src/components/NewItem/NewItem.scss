@@ -1,0 +1,100 @@
+@import '../../styles/main.scss';
+
+.new-item-container{
+    flex-grow: 1;
+    border: 2px solid;
+    border-color: #E6E6E6;
+    max-height: 90px;
+    display: flex;
+    box-sizing: border-box;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+    transition: .5s ease-in-out all;
+    height: fit-content;
+    &.open{
+        max-height: 850px;
+    }
+
+    .placeholder{
+        font-size: 1.5rem;
+        color: #cbcbcb;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        top: 20px;
+        left: 15px;
+        // transform: translateY(-50%);
+        transition: .3s ease-in-out all;
+
+        span{
+            font-size: 2rem;
+            margin-right: 8px;
+        }
+
+        &.hidden{
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+    
+    
+    form{
+        position: relative;
+        width: 100%;
+        opacity: 0;
+        pointer-events: none;
+        transition: .3s ease-in-out all;
+
+        &.open{
+            pointer-events: all;
+            opacity: 1;
+        }
+        input{
+            width: 100%;
+            height: 45px;
+            margin:5px;
+            outline: none;
+            border: 1px solid rgb(214, 214, 214);
+            border-radius: 3px;
+            padding: 15px 5px;
+            box-sizing: border-box;
+            
+            &:focus{
+                border:1px solid $main_orange;
+            }
+        }
+
+        .row{
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            input{
+                width: 50%;
+            }
+        }
+
+        .buttons{
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+        button{
+            height: 30px;
+            width: 50px;
+            background-color: $main_pink;
+            color: #ffffff;
+            transition: .25s all ease-out;
+            border-radius: 3px;
+            &:hover{
+                background-color: $main_orange;
+
+            }
+
+            &.cancel{
+                margin-right: 8px;
+                background-color: $main_red;
+            }
+        }
+    }
+}

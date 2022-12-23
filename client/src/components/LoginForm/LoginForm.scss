@@ -5,7 +5,7 @@
     align-items: center;
     opacity: 1;
     position: absolute;
-    top: 50%;
+    top: calc(50% - 100px);
     left: 50%;
     transform: translate(-50%, -50%);
     transition: $main_transition ease-out opacity;
@@ -17,10 +17,8 @@
     
     form{
         position: relative;
-        top:-5px;
-
         input{
-            width: 145px;
+            width: 150px;
             height: 25px;
             margin-right: 5px;
             outline: none;

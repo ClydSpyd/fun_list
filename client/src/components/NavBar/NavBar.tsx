@@ -23,11 +23,11 @@ const NavBar = () => {
   return (
     <div className="nav-bar">
       <div className="nav-items">
-        {
+        {/* {
             navItems.map(i => 
                    <div className="nav-item">{i.text}</div> 
             )
-        }
+        } */}
       </div>
       <h6 className={`retro`}>MYSTERY BOX</h6>
       <button onClick={handleLogout}>Logout</button>
