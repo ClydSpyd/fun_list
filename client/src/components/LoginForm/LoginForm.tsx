@@ -6,8 +6,8 @@ import boxImage from '../../assets/mystery_box.png'
 import './LoginForm.scss'
 
 const initialValues = {
-    userName: 'Lina',
-    password: 'testing'
+    userName: '',
+    password: ''
 };
 
 const LoginForm = () => {
