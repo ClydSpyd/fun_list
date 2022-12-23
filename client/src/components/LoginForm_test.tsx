@@ -4,8 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { cookies } from '../utils/cookies';
 
 const initialValues = {
-    userName: 'Lina',
-    password: 'testing'
+    userName: '',
+    password: ''
 };
 
 const LoginForm = () => {
