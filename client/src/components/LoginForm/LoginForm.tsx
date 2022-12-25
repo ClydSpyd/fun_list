@@ -4,6 +4,8 @@ import { useAuth } from '../../context/AuthContext';
 import boxImage from '../../assets/mystery_box.png'
 import './LoginForm.scss'
 import { addAnimation } from '../../utils/addAnimation';
+import axios from 'axios';
+import { useQuery } from 'react-query';
 
 const initialValues = {
     userName: '',
@@ -15,6 +17,18 @@ const LoginForm = () => {
     const { login, isAuthenticated, loading } = useAuth();
     const errorsRef = useRef(null)
     
+    const getItems = async () => {
+      const { data } = await axios.get('/api/item/get_all');
+      console.log(data);
+      return data
+  }
+    
+    const getTest = async () => {
+      const { data } = await axios.get('/api/test');
+      console.log(data);
+      return data
+  }
+
     const handleLogin = async (values: any) => {
         const res = await login(values);
         console.log(res)
@@ -22,6 +36,18 @@ const LoginForm = () => {
             setErrors(res.errors)
         };
     }
+    
+    const items = useQuery('items', getItems);
+    const test = useQuery('items', getTest);
+    
+    useEffect(() => {
+    
+      console.log("items")
+      console.log(items)
+      console.log("test")
+      console.log(test)
+
+    },[test, items])
 
   useEffect(() => {
     if (errors.length) {
