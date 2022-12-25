@@ -8,6 +8,7 @@
     position: relative;
     box-sizing: border-box;
     padding-top: 20px;
+    overflow: hidden;
 
     .tabs-bar{
         display: flex;
@@ -29,10 +30,18 @@
                 font-size: 1rem;
                 margin-right: 5px;
                 cursor: pointer;
+                transition: .15s linear all;
 
                 &.new{
                     width: 40px;
-                    font-size: 1.5rem;
+                    font-size: 1.5rem;  
+                    
+
+                    &:hover{
+                        border-color: $main_pink;
+                        background-color: $main_pink;
+                        color: #ffffff;
+                    }
                 }
 
                 &.main{
@@ -49,30 +58,6 @@
                 }
             }
         }
-
-        .new-item{
-            width: 150px;
-            height: 40px;
-            background-color: $main_pink;
-            border: 2px solid $main_pink;
-            color: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: .3s linear all;
-
-            span{
-                margin-left: 5px;
-                font-size: 30px;
-            }
-
-            &:hover{
-                border-color: $main_orange;
-            }
-        }
     }
     
     .list-container{
@@ -80,14 +65,17 @@
         border: 2px solid #E6E6E6;
         box-sizing: border-box;
         flex-grow: 1;
-        margin: 10px 0;
+        margin: 0;
+        border-top-right-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
 
         .header{
             padding: 20px 20px 10px 0px;
             box-sizing: border-box;
             display: flex;
             justify-content: space-between;
-            flex-grow: 1;
             margin: 0 20px;
             border-bottom: 1px solid $main_orange;
 
@@ -102,25 +90,263 @@
         width: 100%;
         box-sizing: border-box;
         padding: 5px 20px;
+        overflow-y: scroll;
+        flex-grow: 1;
+    }
+
+    .loading-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding-bottom: 30%;
+        box-sizing: border-box;
+
+        h6{
+            margin: 0;
+            font-size: 1rem;
+            color: $main_pink;
+        }
+        img{
+            height: 40px;
+        }
     }
     .item{
         height: 90px;
         box-sizing: border-box;
-        padding: 20px 30px;
+        padding: 20px 20px 20px 30px;
         width: 100%;
         flex-grow: 1;
         display: flex;
-        background-color: #f8f8f8;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #ffffff;
         border-radius: 6px;
-        border: 1px solid #f8f8f8;
+        border: 3px solid #f8f8f8;
         margin: 10px 0;
         font-size: 10px;
         color: $main_pink;
         transition: all .3s linear;
         cursor: pointer;
+        position: relative;
+        overflow: hidden;
+
+        .confirm-delete{
+            position: absolute;
+            background-color:#f3f3f3;
+            left: 0;
+            z-index: 10;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            pointer-events: none;
+            transition: all .3s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .warning{
+                display: flex;
+                align-items: center;
+                margin-left: 40px;
+    
+                svg{
+                    height: 40px;
+                    width: 40px;
+                    margin-right: 25px;
+                }
+            }
+
+            .conf{
+                height: 60px;
+                width: 150px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                // border: 1px solid red;
+
+                img.spinner{
+                    background-color: initial;
+                    position: relative;
+                    // left: 35px;
+                    height: 30px;
+                }
+
+                p{
+                    font-weight: 700;
+                    font-size: .8rem;
+                    color: $main_red;
+                }
+                .conf-btns{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 5px;
+                    position: relative;
+                    // border: 1px solid red;
+
+                    .btn{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 25px;
+                        width: 25px;
+                        border-radius: 50%;
+                        background-color: #e7e7e7;
+                        // border: 1px solid red;
+                        margin: 0 2px;
+
+                        svg{
+                            height: 12px;
+                            width: 12px;
+                            margin: 0;
+                            cursor: pointer;
+                            position: relative;
+                            color: #858585;
+                            transition: .15s ease-out all;
+                        }
+
+                        &:hover{
+                            svg{
+                                color: $main_red;
+                            }
+                        }
+                        
+                        &.yes{
+                            left: 10px;
+
+                            svg{
+                                height: 30px;
+                                width: 30px;
+                                position: relative;
+                            }
+
+                            &:hover{
+                                svg{
+                                    color: rgb(145, 236, 54);
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            
+            &.visible{
+                opacity: 1;
+                pointer-events: all;
+
+            }
+        }
 
         &:hover{
-            border-color: $main_pink;
+            
+            .user-btns{
+                opacity: 1 !important;
+            }
+        }
+
+        .left, .right{
+            display: flex;
+            align-items: center;
+        }
+
+        .left{
+            svg{
+                height: 35px;
+                width: 35px;
+                border-radius: 50%;
+                color: $main_orange;
+                background-color: #f8f8f8;
+                padding: 10px;        
+            }
+        }
+
+        .right{
+
+            .user-btns{
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                width: 100px;
+                right: -20px;
+                position: relative;
+                opacity: 1;
+                transition: .3s linear all;
+            }
+            .action-btn{
+                height: 25px;
+                width: 25px;
+                border-radius: 50%;
+                background-color: #ffffff;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: .3s linear all;
+
+                svg{
+                    height: 22px;
+                    width: 22px;
+                    color:$main_red;
+                }
+                    
+                &:hover{
+                    background-color: $main_red;
+                    svg{
+                        color: #ffffff;
+                    }
+                }
+
+                &.edit{
+                    left: -5px;
+                    
+                    svg{
+                        height: 16px;
+                        width: 16px;
+                        color: #858585;
+                        position: relative;
+                        right: -1px;
+                    }
+                    
+                    &:hover{
+                        background-color: #dedede;
+                        // svg{
+                        //     color: #ffffff;
+                        // }
+                    }
+                }
+
+            }
+        }
+
+        .delete{
+            height: 15px;
+            width: 15px;
+            background-color: red;
+            position: relative;
+            left: -15px;
+        }
+        h4{
+            font-size: 16px;
+            margin-left: 20px;
+        }
+
+        img {
+            height: 35px;
+            width: 35px;
+            border-radius: 50%;
+            color: $main_orange;
+            background-color: #f8f8f8;
+            padding: 10px;        
+        }
+
+        img{
+            padding: 1px;
+            background-color: #858558;        
         }
     }
 }

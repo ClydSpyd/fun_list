@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 // @desc      return all items
 // @@access   public
 router.get('/get_all', async (req, res) => {
-    const items = await ListItem.find();
+    const items = await ListItem.find().populate('submittedBy');
     return res.json(items)
 })
 
@@ -35,7 +35,7 @@ router.post('/create', [authMiddle,[
   try {
   
     const userId = req.userId
-    const { title, description, link, imgLink } = req.query
+    const { title, description, link, imgLink } = req.body
     const newItem = new ListItem({ title, description, link, imgLink, submittedBy: userId})
     await newItem.save()
 
@@ -49,5 +49,20 @@ router.post('/create', [authMiddle,[
   }
 }
 )
+
+router.post('/delete', [authMiddle,[
+  check('id', "No id received").not().isEmpty(),
+]], async(req, res) => {
+  console.log('hello')
+  try {
+    const {id} = req.body
+    console.log(id)
+    const item = await ListItem.findOneAndDelete({ _id: id });
+    console.log(item);
+  } catch (error) {
+    console.log(error)
+  }
+  res.send('hello_world__')
+})
  
 module.exports = router

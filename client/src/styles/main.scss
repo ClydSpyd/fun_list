@@ -16,6 +16,18 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+::selection{
+    background: $main_pink;
+    color: #ffffff;
+}
+input{
+    
+    &::selection {
+        color: #ffffff;
+        padding: 0 10px;
+        background:$main_pink !important;
+    }
+ }
 
 
 button{

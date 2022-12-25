@@ -3,12 +3,13 @@
 .new-item-container{
     flex-grow: 1;
     border: 2px solid;
-    border-color: #E6E6E6;
-    max-height: 90px;
+    border-color: #e6e6e635;
+    background-color: #e6e6e67e;
+    max-height: 85px;
     display: flex;
     box-sizing: border-box;
     padding: 15px;
-    border-radius: 8px;
+    border-radius: 6px;
     position: relative;
     transition: .5s ease-in-out all;
     height: fit-content;
@@ -22,10 +23,21 @@
         display: flex;
         align-items: center;
         position: absolute;
-        top: 20px;
+        top: 17px;
         left: 15px;
+        width: calc(100% - 30px);
+        border-radius: 3px;
+        box-sizing: border-box;
+        padding: 3px 10px;
+        cursor: text;
+        border:1px solid #cbcbcb;
         // transform: translateY(-50%);
         transition: .3s ease-in-out all;
+
+        &:hover{
+            border-color: $main_pink;
+            background-color: #ffffff;
+        }
 
         span{
             font-size: 2rem;
@@ -56,10 +68,8 @@
             margin:5px;
             outline: none;
             border: 1px solid rgb(214, 214, 214);
-            border-radius: 3px;
             padding: 15px 5px;
             box-sizing: border-box;
-            
             &:focus{
                 border:1px solid $main_orange;
             }
@@ -86,14 +96,56 @@
             color: #ffffff;
             transition: .25s all ease-out;
             border-radius: 3px;
+            position: relative;
+            font-size: 11px;
+
             &:hover{
                 background-color: $main_orange;
 
             }
 
+            &.go{
+
+                &::after{
+                    position: absolute;
+                    content: "GO" ;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height:20px;
+                    width: 20px;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+                &:hover{
+                    background-color: $main_orange;
+    
+                }
+    
+                &.loading{
+                    background:no-repeat center, $main_pink;
+                    background-size: 30px;
+                    &::after{
+                        background:url(../../assets/spinner.svg) no-repeat center;
+                        content: '';
+                        background-size: 30px;
+                    }
+                }
+            }
+
             &.cancel{
-                margin-right: 8px;
-                background-color: $main_red;
+                margin-right: 5px;
+                font-weight: 500;
+                font-size: 11px;
+                color: $main_red;
+                background-color: #ffffff;
+                border:1px solid $main_red;
+
+                &:hover{
+                    background-color: $main_red;
+                    color: #ffffff;
+                }
             }
         }
     }

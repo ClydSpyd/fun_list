@@ -1,6 +1,7 @@
 import { useAuth } from "../../context/AuthContext"
 import { cookies } from "../../utils/cookies";
 import './NavBar.scss'
+import { FiLogOut } from "react-icons/fi";
 
 const navItems = [
     {
@@ -30,7 +31,7 @@ const NavBar = () => {
         } */}
       </div>
       <h6 className={`retro`}>MYSTERY BOX</h6>
-      <button onClick={handleLogout}>Logout</button>
+      <button onClick={handleLogout}>Logout <FiLogOut /></button>
     </div>
   );
 };

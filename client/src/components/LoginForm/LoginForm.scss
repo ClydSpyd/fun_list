@@ -17,6 +17,7 @@
     
     form{
         position: relative;
+        margin-top: 5px;
         input{
             width: 150px;
             height: 25px;
@@ -35,14 +36,51 @@
         button{
             height: 30px;
             width: 50px;
-            background-color: $main_pink;
+            background:$main_pink;
+            background-size: 30px;
             color: #ffffff;
-            transition: .25s all ease-out;
+            transition: .25s background ease-out;
             border-radius: 3px;
+            position: relative;
+            top: -4px;
+
+            &::after{
+                position: absolute;
+                content: "GO" ;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height:20px;
+                width: 20px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
             &:hover{
                 background-color: $main_orange;
 
             }
+
+            &.loading{
+                background:no-repeat center, $main_pink;
+                background-size: 30px;
+                &::after{
+                    background:url(../../assets/spinner.svg) no-repeat center;
+                    content: '';
+                    background-size: 30px;
+                }
+            }
+        }
+    }
+
+    .errors{
+        position: absolute;
+        bottom: -15px;
+        .error{
+            color: $main_red;
+            font-size: 12px;
+            font-weight: 500;
+
         }
     }
 

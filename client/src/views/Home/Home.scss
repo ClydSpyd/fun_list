@@ -25,7 +25,7 @@
         background-color: #E6E6E6;
         position: relative;
         height: 100%;
-        left: -35px;
+        left: -15px;
         transition: .9s cubic-bezier(0.44,-0.34, 0.56, 1) all;
         
         &.open{
@@ -38,11 +38,10 @@
             position: absolute;
             transition: .1s linear all, .4s linear transform;
             top: 50%;
-            left: calc(100% - 25px);
+            right: -10px;
             transform: translateY(-50%)rotate(0deg);
-            height: 30px;
-            width: 30px;
-            border: 2px solid #858585;
+            height: 25px;
+            width: 25px;
             border-radius: 50%;
             background-color: #858585;
             color: #ffffff;
@@ -52,10 +51,11 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            font-weight: 300 !important;
+            padding: 2px;
 
             &:hover{
-                border-color: $main_orange;
-                color: $main_orange;
+                background-color: $main_orange;
             }
             
             &.open{

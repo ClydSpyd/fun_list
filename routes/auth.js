@@ -30,10 +30,11 @@ router.post(
     //   let userObj = await User.findOne({userName}).lean();
       
       if (!userObj) {
+        console.log("Invalid Credentials: !userObj")
         return res.json({
           errors: [
             {
-              msg: "Invalid Credentials1",
+              msg: "Invalid credentials",
             },
           ],
         });
@@ -42,10 +43,11 @@ router.post(
       const isMatch = await bcrypt.compare(password, userObj.password);
 
       if (!isMatch) {
+        console.log("Invalid Credentials: !isMatch")
         return res.json({
           errors: [
             {
-              msg: "Invalid Credentials2",
+              msg: "Invalid credentials",
             },
           ],
         });

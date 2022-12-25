@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Formik } from 'formik';
 import { useAuth } from '../../context/AuthContext';
-import { cookies } from '../../utils/cookies';
 import boxImage from '../../assets/mystery_box.png'
 import './LoginForm.scss'
+import { addAnimation } from '../../utils/addAnimation';
 
 const initialValues = {
     userName: '',
@@ -12,14 +12,22 @@ const initialValues = {
 
 const LoginForm = () => {
     const [ errors, setErrors ] = useState<{msg:string}[]>([]);
-    const { login, isAuthenticated, setIsAuthenticated } = useAuth();
+    const { login, isAuthenticated, loading } = useAuth();
+    const errorsRef = useRef(null)
     
     const handleLogin = async (values: any) => {
         const res = await login(values);
+        console.log(res)
         if(res.errors){
             setErrors(res.errors)
         };
     }
+
+  useEffect(() => {
+    if (errors.length) {
+      addAnimation(errorsRef, "shakeSlow", 500);
+    }
+  }, [errors]);
 
   return (
     <div className={`login-form-wrapper ${isAuthenticated && 'loggedIn'}`}>
@@ -32,7 +40,7 @@ const LoginForm = () => {
           onSubmit={(values) => handleLogin(values)}
         >
           {({ errors, touched, handleSubmit, handleChange, values }) => (
-            <form onSubmit={handleSubmit}>
+            <form onChange={()=>setErrors([])} onSubmit={handleSubmit}>
               <input
                 placeholder='username'
                 value={values.userName}
@@ -49,10 +57,16 @@ const LoginForm = () => {
                 name="password"
                 id=""
               />
-              <button type="submit">go</button>
+              <button className={`${loading && 'loading'}`} type="submit"/>
             </form>
           )}
         </Formik>
+        {
+          errors.length > 0 &&
+            <div ref={errorsRef} className="errors">
+              <p className="error">{errors[0].msg}</p>
+            </div>
+        }
       </div>
     </div>
   );

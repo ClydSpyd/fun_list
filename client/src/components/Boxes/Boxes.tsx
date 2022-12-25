@@ -1,17 +1,12 @@
-import axios from 'axios'
-import { useQuery } from 'react-query'
 import './Boxes.scss'
+import ListItem from './ListItem/ListItem';
+import loader from "../../assets/loading_roller.svg";
 
-const Boxes = () => {
-    
-    const getItems = async () => {
-        const { data } = await axios.get('/api/item/get_all');
-        console.log(data);
-        return data
-    }
-    const { isLoading, error, data } = useQuery('items', getItems);
-    
-
+interface props {
+  query: any;
+}
+const Boxes = ({ query }: props) => {
+  const { error, data, isLoading, refetch } = query;
   return (
     <div className="boxes-container">
       <div className="tabs-bar">
@@ -19,7 +14,6 @@ const Boxes = () => {
           <div className="tab main">Main Box</div>
           <div className="tab new">+</div>
         </div>
-          {/* <div className="new-item">Add new item <span>+</span></div> */}
       </div>
       <div className="list-container">
         <div className="header">
@@ -27,11 +21,15 @@ const Boxes = () => {
         </div>
         <div className="list">
           {isLoading ? (
-            <h6>Loading...</h6>
+            <div className='loading-container'>
+              <img src={loader} alt="spinner" />
+              <h6>Loading list...</h6>
+            </div>
           ) : error ? (
             <h6>ERROR</h6>
           ) : (
-            data.map((i: any) => <div className="item">{i.title}</div>)
+            data.map((i: any) => <ListItem key={i._id} query={query} item={i} />
+            )
           )}
         </div>
       </div>
@@ -39,4 +37,4 @@ const Boxes = () => {
   );
 }
 
-export default Boxes
+export default Boxes;

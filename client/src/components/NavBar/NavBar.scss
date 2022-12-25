@@ -42,13 +42,21 @@
         width: 100px;
         color: #ffffff;
         background-color: #858585;
-        border: 2px solid #858585;
+        // border: 2px solid #858585;
         transition: .25s all ease-out;
         border-radius: 3px;
         font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        
+        svg{
+            stroke-width: 3px;
+        }
+
         &:hover{
-            border: 2px solid $main_orange;
-            color: $main_orange;
+            background-color:$main_red;
+            // color: $main_orange;
             font-weight: 500;
             // background-color: $main_pink;
         }
