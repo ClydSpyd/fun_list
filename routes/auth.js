@@ -18,19 +18,19 @@ router.post(
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.json({
-          errors: errors.array().map(({ msg, param }) => ({ msg, param })),
-        });
+        errors: errors.array().map(({ msg, param }) => ({ msg, param })),
+      });
     }
 
     const { userName, password } = req.body;
-    console.log(userName)
+    console.log(userName);
 
     try {
-      let userObj = await User.findOne({userName});
-    //   let userObj = await User.findOne({userName}).lean();
-      
+      let userObj = await User.findOne({ userName });
+      //   let userObj = await User.findOne({userName}).lean();
+
       if (!userObj) {
-        console.log("Invalid Credentials: !userObj")
+        console.log("Invalid Credentials: !userObj");
         return res.json({
           errors: [
             {
@@ -43,7 +43,7 @@ router.post(
       const isMatch = await bcrypt.compare(password, userObj.password);
 
       if (!isMatch) {
-        console.log("Invalid Credentials: !isMatch")
+        console.log("Invalid Credentials: !isMatch");
         return res.json({
           errors: [
             {
@@ -53,14 +53,20 @@ router.post(
         });
       }
 
-      const token = jwt.sign({...userObj}, process.env.JWT_SECRET);
+      const token = jwt.sign({ ...userObj }, process.env.JWT_SECRET);
 
-      return res.cookie("auth_token", token).json({ avatar:userObj.avatar, id:userObj.id, userName: userObj.userName });
+      return res
+        .cookie("auth_token", token, { sameSite: "none", secure: true })
+        .json({
+          avatar: userObj.avatar,
+          id: userObj.id,
+          userName: userObj.userName,
+        });
     } catch (err) {
       console.error(err.message);
-      res.status(500).json({msg:"server error", err});
+      res.status(500).json({ msg: "server error", err });
     }
   }
 );
 
-module.exports = router
+module.exports = router;
