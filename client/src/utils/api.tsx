@@ -4,13 +4,10 @@ import {cookies} from "./cookies";
 type Method = 'get' | 'post';
 
 const auth_token = cookies.get('auth_token')
-axios.defaults.headers.common['Authorization'] = auth_token;
 axios.defaults.headers.common['x-auth-token'] = auth_token;
 
 const options = {
-  withCredentials: true,
-  credentials: "include",
-  headers: { "Content-Type": "application/json", Cookie: auth_token },
+  headers: { "Content-Type": "application/json" },
 };
 
 export const apiCall = async (method: Method, endpoint: string, payload?: any) => {
