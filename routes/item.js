@@ -15,9 +15,7 @@ router.get('/', (req, res) => {
 // @desc      return all items
 // @@access   public
 router.get('/get_all', async (req, res) => {
-  console.log('get_all')
   const items = await ListItem.find().populate('submittedBy');
-  console.log(items.length)
     return res.json(items)
 })
 
