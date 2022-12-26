@@ -34,9 +34,12 @@ export const AuthContextProvider = ({ children }: Props) => {
   const login = async (payload: any) => {
     toggleLoading(!loading)
     const { data } = await apiCall('post', 'api/auth/login', payload);
+    console.log(data)
     if (data.id) {
+      console.log('data')
       setUserId(data.id);
       setIsAuthenticated(true);
+      cookies.add('auth_token', data.token)
     }
     toggleLoading(false);
     return data;

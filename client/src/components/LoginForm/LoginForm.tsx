@@ -6,8 +6,8 @@ import './LoginForm.scss'
 import { addAnimation } from '../../utils/addAnimation';
 
 const initialValues = {
-    userName: '',
-    password: ''
+    userName: 'Lina',
+    password: 'testing'
 };
 
 const LoginForm = () => {

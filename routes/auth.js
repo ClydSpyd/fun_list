@@ -56,11 +56,11 @@ router.post(
       const token = jwt.sign({ ...userObj }, process.env.JWT_SECRET);
 
       return res
-        .cookie("auth_token", token, { sameSite: "none", secure: true })
         .json({
           avatar: userObj.avatar,
           id: userObj.id,
           userName: userObj.userName,
+          token
         });
     } catch (err) {
       console.error(err.message);

@@ -10,7 +10,12 @@ const removeCookie = (name) => {
     return cookie;
 }
 
+const addCookie = (key, value) => {
+    Cookies.set(key, value);
+}
+
 export const cookies = {
     get: getCookie,
-    remove: removeCookie
+    remove: removeCookie,
+    add: addCookie
 }
