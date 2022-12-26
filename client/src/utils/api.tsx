@@ -3,7 +3,8 @@ import axios from "axios";
 type Method = 'get' | 'post';
 
 const options = {
-    withCredentials: true
+    withCredentials: true,
+    credentials: 'include'
 }
 
 export const apiCall = async (method: Method, endpoint: string, payload?: any) => {
