@@ -4,7 +4,8 @@ type Method = 'get' | 'post';
 
 const options = {
     withCredentials: true,
-    credentials: 'include'
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' }  
 }
 
 export const apiCall = async (method: Method, endpoint: string, payload?: any) => {
