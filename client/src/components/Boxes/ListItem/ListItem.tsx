@@ -9,6 +9,7 @@ import axios from "axios";
 import { useRef, useState } from "react";
 import { useOutsideClick } from "../../../utils/hooks/useOutsideClick";
 import spinner from "../../../assets/loading_roller.svg";
+import { apiCall } from "../../../utils/api";
 
 type Props = {
   item: Item;
@@ -24,8 +25,8 @@ const ListItem = ({ item, query }: Props) => {
   const { refetch } = query;
 
   const handleDelete = async () => {
-    toggleLoading(true)
-    await axios.post("/api/item/delete", {
+    toggleLoading(true);
+    await apiCall("post", `api/item/delete`, {
       id: item._id,
     });
     refetch();

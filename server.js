@@ -6,6 +6,11 @@ require('dotenv').config();
 const app = express();
 app.use(cookieParser());
 
+// // allow cross-origin requests
+const cors = require('cors');
+app.use(cors({ credentials: true, origin: true }));
+app.options('*', cors());
+
 connectDb();
 
 app.use(express.json({ extended: false })) //body parser

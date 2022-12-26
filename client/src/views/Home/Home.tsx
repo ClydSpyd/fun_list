@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import Boxes from '../../components/Boxes/Boxes';
 import NewItem from '../../components/NewItem/NewItem';
 import { useAuth } from '../../context/AuthContext';
+import { apiCall } from '../../utils/api';
 import './Home.scss';
 
 const Home = () => {
@@ -17,8 +18,7 @@ const Home = () => {
     },[isAuthenticated])
     
     const getItems = async () => {
-      const { data } = await axios.get('/api/item/get_all');
-      console.log(data);
+      const { data } = await apiCall('get', `api/item/get_all`);
       return data
   }
   const itemsQuery = useQuery('items', getItems);

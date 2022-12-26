@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
-import axios from "axios";
 import { cookies } from "../utils/cookies";
 import jwt from "jwt-decode";
+import { apiCall } from "../utils/api";
 const tokenCookie = cookies.get("auth_token");
 
 interface Props {
@@ -29,14 +29,12 @@ export const AuthContextProvider = ({ children }: Props) => {
       setUserId(decoded._doc._id)
     }
   },[tokenCookie])
-
+ 
 
   const login = async (payload: any) => {
     toggleLoading(!loading)
-    const { data } = await axios.post("/api/auth/login", payload);
+    const { data } = await apiCall('post', 'api/auth/login', payload);
     if (data.id) {
-      console.log('data')
-      console.log(data)
       setUserId(data.id);
       setIsAuthenticated(true);
     }

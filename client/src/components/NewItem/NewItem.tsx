@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Formik } from 'formik';
 import { useState, useRef, useEffect, FormEvent } from 'react'
+import { apiCall } from '../../utils/api';
 import './NewItem.scss'
 
 const initialValues = {
@@ -33,14 +34,13 @@ const NewItem = ({ query }: props) => {
           initialValues={initialValues}
           onSubmit={()=>console.log('ö')}
         >
-          {({ errors, touched, handleChange, values, resetForm }) =>{ 
+          {({ handleChange, values, resetForm }) =>{ 
             const doTheThing = async (e: FormEvent<HTMLFormElement>) => {
               e.preventDefault();
-              const res = await axios.post('/api/item/create', values);
+              await apiCall('post', 'api/item/create', values);
               resetForm();
               refetch();
               setOpen(false)
-              console.log(res);
             }
             return (
             <form className={`${open && 'open'}`} onSubmit={(e)=>doTheThing(e)}>
