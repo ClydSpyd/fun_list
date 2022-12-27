@@ -13,6 +13,7 @@
     position: relative;
     transition: .4s ease-out all, .15s linear padding;
     height: fit-content;
+    // padding-top: 45px;
     
     &.open{
         transition: .7s ease-out all;
@@ -43,7 +44,7 @@
     &.editing{
         border-color: $main_orange;
         padding-top: 45px;
-        transition: .1s ease-out all, .15s linear padding;
+        // transition: .1s ease-out all, .15s linear padding;
 
         .editing{
             opacity: 1;
@@ -245,7 +246,7 @@
 
                 &::after{
                     position: absolute;
-                    content: "GO" ;
+                    content: "Go" ;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -268,6 +269,14 @@
                         content: '';
                         background-size: 30px;
                     }
+                }
+            }
+
+            
+
+            &.save{
+                &::after{
+                    content: "Save";
                 }
             }
 

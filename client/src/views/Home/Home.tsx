@@ -1,7 +1,7 @@
 import Boxes from "../../components/Boxes/Boxes";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { useAuth } from "../../context/AuthContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Home.scss";
 import { useItems } from "./queries/useItems";
 import { itemTags } from "../../config";
@@ -16,6 +16,10 @@ const Home = () => {
   const [editItem, setEditItem] = useState<null | Item>(null);
   const { isAuthenticated } = useAuth();
   const query = useItems(filters);
+
+  useEffect(() => {
+    if(!isAuthenticated) setEditItem(null)
+  },[isAuthenticated])
 
   return (
     <div className="home">

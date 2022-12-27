@@ -51,6 +51,50 @@ router.post('/create', [authMiddle,[
 }
 )
 
+// @route     POST api/item/edit/:id
+// @desc      edit list item
+// @access    private
+router.post('/edit/:id', [authMiddle,[
+  check('id', "No item ID received").not().isEmpty(),
+  check('title', "No title text received").not().isEmpty(),
+  check('description', "No description text received").not().isEmpty(),
+]], async(req, res) => {
+
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){  
+    return res.status(400).json({ errors: errors.array().map(({msg, param}) => ({msg, param})) }) 
+  }
+
+  try {
+  
+    // const userId = req.userId
+    // console.log(userId);
+    const { title, description, link, imgLink, tags } = req.body
+    // const newItem = new ListItem({ title, description, link, imgLink, tags, submittedBy: userId})
+    // await newItem.save()
+
+    const { id } = req.params;
+    const item = await ListItem.findOne({_id: id});
+
+    if (title) {item.title = title};
+    if (description) {item.description = description};
+    if (link) {item.link = link};
+    if (imgLink) {item.imgLink = imgLink};
+    if (tags) {item.tags = tags};
+
+    await item.save();
+
+    res.json({msg:"success!", id, item})
+    
+  } catch (err) {
+    
+    console.error(err)
+    return res.status(500).send({msg:'server error', error: err.message})
+
+  }
+}
+)
+
 router.post('/delete', [authMiddle,[
   check('id', "No id received").not().isEmpty(),
 ]], async(req, res) => {

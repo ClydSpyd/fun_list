@@ -1,6 +1,7 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, FormEvent } from "react";
 import "./ItemDetails.scss";
 import { FaRegEdit } from "react-icons/fa";
+import { itemTags } from "../../config";
 
 interface Props {
   values: any;
@@ -8,13 +9,13 @@ interface Props {
   handleChange: any;
   handleTag: any;
   removeAllTags: any;
-  handleCancel: any;
   query: any;
   availableTags: any;
   activeTags: any;
   setValues: any;
   setOpen: any;
   editItem: any;
+  setEditItem: React.Dispatch<React.SetStateAction<Item | null>>;
   open: boolean;
 }
 
@@ -26,23 +27,36 @@ const DetailsForm = ({
   handleChange,
   handleTag,
   removeAllTags,
-  handleCancel,
+  setEditItem,
   availableTags,
   activeTags,
   editItem,
   setValues,
   query,
 }: Props) => {
-  const { isRefetching } = query;
+  const { isRefetching, isLoading } = query;
   const titleRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    console.log(editItem);
     if (editItem) {
       setOpen(true);
       setValues(editItem);
+      const available = itemTags.filter(i => editItem.tags.indexOf(i) === -1);
+      handleTag('', { available, active: [...editItem.tags]})
     }
   }, [editItem]);
+  
+  const handleCancel = (e:any) => {
+    e.preventDefault();
+    console.log('cancel')
+    setOpen(false);
+    removeAllTags();
+    setEditItem(null)
+  };
+
+  useEffect(() => {
+    if(open) titleRef?.current?.focus();
+  }, [open])
 
   return (
     <div
@@ -109,10 +123,10 @@ const DetailsForm = ({
           </div>
         </div>
         <div className="buttons">
-          <button onClick={handleCancel} className="cancel" type="submit">
+          <button onClick={e=>handleCancel(e)} className="cancel">
             cancel
           </button>
-          <button className={`go ${isRefetching && "loading"}`} type="submit" />
+          <button className={`go ${isRefetching | isLoading && "loading"} ${editItem && "save"}`} type="submit" />
         </div>
       </form>
     </div>

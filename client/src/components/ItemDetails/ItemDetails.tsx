@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { Formik, useFormikContext } from "formik";
+import { Formik } from "formik";
 import { apiCall } from "../../utils/api";
 import { itemTags } from "../../config";
 import DetailsForm from "./DetailsForm";
@@ -24,14 +24,15 @@ const ItemDetails = ({ query, editItem, setEditItem }: Props) => {
   const [activeTags, setActiveTags] = useState<string[]>([]);
   const [availableTags, setAvailableTags] = useState(itemTags);
 
-  const handleCancel = () => {
-    setOpen(false);
-    removeAllTags();
-    setEditItem(null)
-  };
-  const handleTag = (tag: string) => {
-    console.log(tag);
-    if (activeTags.includes(tag)) {
+  const handleTag = (
+    tag: string,
+    obj: { available: string[]; active: string[] }
+  ) => {
+    console.log(obj);
+    if (obj) {
+      setActiveTags([...obj.active]);
+      setAvailableTags([...obj.available]);
+    } else if (activeTags.includes(tag)) {
       setActiveTags([...activeTags.filter((i) => i !== tag)]);
       setAvailableTags([...availableTags, tag]);
     } else {
@@ -50,7 +51,13 @@ const ItemDetails = ({ query, editItem, setEditItem }: Props) => {
       {({ handleChange, values, resetForm, setValues }) => {
         const handleSublit = async (e: FormEvent<HTMLFormElement>) => {
           e.preventDefault();
-          await apiCall("post", "api/item/create", {
+          const URL = editItem
+            ? `api/item/edit/${editItem._id}`
+            : "api/item/create";
+          console.log(editItem);
+          console.log(URL);
+          console.log(availableTags);
+          await apiCall("post", URL, {
             ...values,
             tags: activeTags,
           });
@@ -58,12 +65,12 @@ const ItemDetails = ({ query, editItem, setEditItem }: Props) => {
           resetForm();
           refetch();
           setOpen(false);
-          setEditItem(null)
+          setEditItem(null);
         };
         return (
           <DetailsForm
             values={values}
-            handleCancel={handleCancel}
+            setEditItem={setEditItem}
             handleChange={handleChange}
             handleSubmit={handleSublit}
             handleTag={handleTag}

@@ -23,19 +23,10 @@ const NewItem = ({ query, editItem }: Props) => {
   const [activeTags, setActiveTags] = useState<string[]>([]);
   const [availableTags, setAvailableTags] = useState(itemTags);
   const titleRef = useRef<HTMLInputElement | null>(null);
-  const { setFieldValue } = useFormikContext()
 
   useEffect(() => {
     if (open) titleRef.current?.focus();
   }, [open]);
-
-  useEffect(() => {
-    if(editItem){
-      setOpen(true);
-      setFieldValue('title', 'hello world')
-      // initialValues.title = editItem.title;
-    }
-  },[editItem])
 
   const handleCancel = () => {
     setOpen(false)
