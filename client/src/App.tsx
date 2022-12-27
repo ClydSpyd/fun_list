@@ -5,7 +5,7 @@ function App() {
     return (
       <div className="app-wrapper">
         <LoginForm />
-        <MainLayout />
+        <MainLayout /> 
       </div>
     );
   }

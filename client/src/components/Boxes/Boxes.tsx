@@ -2,11 +2,13 @@ import './Boxes.scss'
 import ListItem from './ListItem/ListItem';
 import loader from "../../assets/loading_roller.svg";
 
-interface props {
-  query: any;
+interface Props {
+  query: any
 }
-const Boxes = ({ query }: props) => {
-  const { error, data, isLoading, refetch } = query;
+
+const Boxes = ({ query }: Props) => {
+  const { error, data, isLoading } = query;
+
   return (
     <div className="boxes-container">
       <div className="tabs-bar">
@@ -28,7 +30,7 @@ const Boxes = ({ query }: props) => {
           ) : error ? (
             <h6>ERROR</h6>
           ) : (
-            data.map((i: any) => <ListItem key={i._id} query={query} item={i} />
+            data?.map((i: Item) => <ListItem key={i._id} query={query} item={i} />
             )
           )}
         </div>

@@ -1,5 +1,9 @@
 /// <reference types="react-scripts" />
 
+
+type ApiMethod = 'get' | 'post' | 'put';
+type ItemFilters = { submittedBy: string[]; complete: boolean[] };
+
 interface decodedCookie {
     _doc: any;
   }

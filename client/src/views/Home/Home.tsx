@@ -1,42 +1,23 @@
-import axios from 'axios';
-import { useState, useRef, useEffect } from 'react';
-import { useQuery } from 'react-query';
 import Boxes from '../../components/Boxes/Boxes';
 import NewItem from '../../components/NewItem/NewItem';
+import Sidebar from '../../components/Sidebar/Sidebar';
 import { useAuth } from '../../context/AuthContext';
-import { apiCall } from '../../utils/api';
+import { useState } from 'react';
 import './Home.scss';
+import { useItems } from './queries/useItems';
 
 const Home = () => {
-    const [ sidebarOpen, toggleSidebar ] = useState(true)
-    const sidebarRef = useRef(null)
-    const { isAuthenticated } = useAuth();
-
-
-    useEffect(()=> {
-        toggleSidebar(isAuthenticated)
-    },[isAuthenticated])
-    
-    const getItems = async () => {
-      const { data } = await apiCall('get', `api/item/get_all`);
-      return data
-  }
-  const itemsQuery = useQuery('items', getItems);
+  const [ filters, setFilters ] = useState<ItemFilters>({submittedBy: ['Dave', 'Lina'], complete: [true, false]})
+  const { isAuthenticated } = useAuth();
+  const query = useItems(filters)
 
   return (
     <div className="home">
-      <div ref={sidebarRef} className={`sidebar ${sidebarOpen && "open"}`}>
-        <div
-          className={`handle ${sidebarOpen && "open"}`}
-          onClick={() => toggleSidebar(!sidebarOpen)}
-        >
-          {`>`}
-        </div>
-      </div>
+      <Sidebar query={query} filters={filters} setFilters={setFilters} />
       {isAuthenticated && (
         <div className="container">
-          <NewItem query={itemsQuery} />
-          <Boxes query={itemsQuery} />
+          <NewItem query={query} />
+          <Boxes query={query} />
         </div>
       )}
     </div>

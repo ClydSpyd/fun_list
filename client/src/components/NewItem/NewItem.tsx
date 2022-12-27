@@ -2,8 +2,12 @@ import axios from 'axios';
 import { Formik } from 'formik';
 import { useState, useRef, useEffect, FormEvent } from 'react'
 import { apiCall } from '../../utils/api';
+import { useItems } from '../../views/Home/queries/useItems';
 import './NewItem.scss'
 
+interface Props {
+  query: any;
+}
 const initialValues = {
   title: '',
   description: '',
@@ -11,12 +15,8 @@ const initialValues = {
   imgLink: '',
 };
 
-interface props {
-  query: any;
-}
-
-const NewItem = ({ query }: props) => {
-  const { refetch, isRefectching } = query;
+const NewItem = ({ query }: Props) => {
+  const { refetch, isRefetching } = query;
   const [ open, setOpen ] = useState(false)
   const titleRef = useRef<HTMLInputElement|null>(null);
 
@@ -83,7 +83,7 @@ const NewItem = ({ query }: props) => {
               <div className="buttons">
 
                 <button onClick={()=> setOpen(false)} className='cancel' type="submit">cancel</button>
-                <button className={`go ${isRefectching && 'loading'}`} type="submit" />
+                <button className={`go ${isRefetching && 'loading'}`} type="submit" />
               </div>
             </form>
           )}}
