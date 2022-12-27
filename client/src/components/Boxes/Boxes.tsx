@@ -5,9 +5,10 @@ import loader from "../../assets/loading_roller.svg";
 interface Props {
   query: any;
   setEditItem: React.Dispatch<React.SetStateAction<Item | null>>;
+  editItem: Item | null;
 }
 
-const Boxes = ({ query, setEditItem }: Props) => {
+const Boxes = ({ query, setEditItem, editItem }: Props) => {
   const { error, data, isLoading } = query;
   
   return (
@@ -37,6 +38,7 @@ const Boxes = ({ query, setEditItem }: Props) => {
                 query={query}
                 item={i}
                 setEditItem={setEditItem}
+                editItem={editItem}
               />
             ))
           )}

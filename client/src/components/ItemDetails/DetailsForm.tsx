@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import "./ItemDetails.scss";
+import { FaRegEdit } from "react-icons/fa";
 
 interface Props {
   values: any;
@@ -35,22 +36,30 @@ const DetailsForm = ({
   const { isRefetching } = query;
   const titleRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(()=>{
-    console.log(editItem)
-    if(editItem){
-        setOpen(true);
-        setValues(editItem)
+  useEffect(() => {
+    console.log(editItem);
+    if (editItem) {
+      setOpen(true);
+      setValues(editItem);
     }
-  },[editItem])
+  }, [editItem]);
 
   return (
-    <div className={`new-item-container ${open && "open"}`}>
+    <div
+      className={`new-item-container ${open && "open"} ${
+        editItem && "editing"
+      }`}
+    >
       <div
         onClick={() => setOpen(true)}
         className={`placeholder ${open && "hidden"}`}
       >
         <span>+</span>
         Add new item
+      </div>
+      <div className="editing">
+        <h4>Editing</h4>
+        <FaRegEdit />
       </div>
       <form className={`${open && "open"}`} onSubmit={(e) => handleSubmit(e)}>
         <input

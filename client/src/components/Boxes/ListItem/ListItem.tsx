@@ -14,10 +14,11 @@ import { apiCall } from "../../../utils/api";
 type Props = {
   item: Item;
   query: any;
-  setEditItem: React.Dispatch<React.SetStateAction<Item | null>>
+  setEditItem: React.Dispatch<React.SetStateAction<Item | null>>;
+  editItem: Item | null;
 };
 
-const ListItem = ({ item, query, setEditItem }: Props) => {
+const ListItem = ({ item, query, setEditItem, editItem }: Props) => {
   const [deleteState, setDeleteState] = useState(false);
   const [loading, toggleLoading] = useState(false);
   const confRef = useRef<HTMLDivElement>(null);
@@ -39,7 +40,7 @@ const ListItem = ({ item, query, setEditItem }: Props) => {
   });
 
   return (
-    <div className={`item ${isMine && "isMine"} ${complete && "complete"}`}>
+    <div className={`item ${isMine && "isMine"} ${complete && "complete"} ${(editItem && editItem._id === item._id) && 'editing'}`}>
       <div className="complete-tick">
         <TiTick />
       </div>

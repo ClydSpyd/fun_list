@@ -7,6 +7,7 @@ import DetailsForm from "./DetailsForm";
 interface Props {
   query: any;
   editItem: Item | null;
+  setEditItem: React.Dispatch<React.SetStateAction<Item | null>>;
 }
 
 let initialValues = {
@@ -17,7 +18,7 @@ let initialValues = {
   tags: [],
 };
 
-const ItemDetails = ({ query, editItem }: Props) => {
+const ItemDetails = ({ query, editItem, setEditItem }: Props) => {
   const { refetch } = query;
   const [open, setOpen] = useState(false);
   const [activeTags, setActiveTags] = useState<string[]>([]);
@@ -26,6 +27,7 @@ const ItemDetails = ({ query, editItem }: Props) => {
   const handleCancel = () => {
     setOpen(false);
     removeAllTags();
+    setEditItem(null)
   };
   const handleTag = (tag: string) => {
     console.log(tag);
@@ -56,6 +58,7 @@ const ItemDetails = ({ query, editItem }: Props) => {
           resetForm();
           refetch();
           setOpen(false);
+          setEditItem(null)
         };
         return (
           <DetailsForm
