@@ -24,7 +24,7 @@ export const AuthContextProvider = ({ children }: Props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!tokenCookie);
   const [loading, toggleLoading] = useState(false);
   const [userId, setUserId] = useState(null);
-  const [userData, setUserData] = useState(JSON.parse(userCookie));
+  const [userData, setUserData] = useState(userCookie ? JSON.parse(userCookie) : null);
 
   useEffect(() => {
     if(tokenCookie){

@@ -4,7 +4,9 @@ import { filterItems } from "../../config";
 import { useAuth } from "../../context/AuthContext";
 import { apiCall } from "../../utils/api";
 import { filterString } from "../../utils/filterStrings";
+import { HiUser } from "react-icons/hi";
 import "./Sidebar.scss";
+import { filterCategoryItem } from "../../utils/filterCategoryIcon";
 
 type Props = {
   query: any;
@@ -47,9 +49,11 @@ const Sidebar = ({ query, filters, setFilters }: Props) => {
       <div className="inner">
         <h5 className="title">Filter Items</h5>
         {users.data && filterItems().map((item) => (
-        // {users.data && filterItems(users.data.filter((i: User)=>i.userName!=='Babuz')).map((item) => (
           <div className="block">
-            <p className="filter-title">{item.title}</p>
+            <>
+            {filterCategoryItem('user')}
+            <p className="filter-title"> {item.title}</p>
+            </>
             <div className={`radios ${item.className}`}>
               {item.values.map((value) => (
                 <div onClick={(e) => doTheThing(item.key, value)} className="filter-row">
@@ -58,22 +62,6 @@ const Sidebar = ({ query, filters, setFilters }: Props) => {
                 </div>
               ))}
             </div>
-            {/* <div className={`radios ${item.className}`}>
-              {item.values.map((value) => (
-                <label>
-                  <>
-                    {filterString(String(value))}
-                    <input
-                      onClick={(e) => doTheThing(item.key, value)}
-                      type="checkbox"
-                      name="submittedBy"
-                      checked={filters[item.key].includes(value)}
-                      value={String(value)}
-                    />
-                  </>
-                </label>
-              ))}
-            </div> */}
           </div>
         ))}
       </div>
