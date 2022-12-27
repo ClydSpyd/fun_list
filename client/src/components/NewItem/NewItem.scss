@@ -88,11 +88,20 @@
             width: 100%;
             margin: 5px;
 
+            p.title{
+                color: #757575;
+                font-size: .9rem;
+                margin: 0;
+            }
+
             .active-tags, 
             .available-tags{
                 display: flex;
                 flex-wrap: wrap;
                 margin: 10px 0;
+            }
+            .active-tags{
+                margin: 5px 0;
             }
 
             .active-tags{

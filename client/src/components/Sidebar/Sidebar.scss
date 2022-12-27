@@ -76,7 +76,7 @@
                 padding: 5px 2px;
                 margin-bottom: 10px;
                 font-weight: 500;
-                color: #858585;
+                color: $main_orange;
                 border-bottom: 1px solid #cbcbcb;
             }
             .radios{
@@ -85,12 +85,24 @@
                     display: flex;
                     height: 30px;
                     cursor: pointer;
+                    border: 1px solid transparent;
+                    align-items: center;
+                    padding: 0 5px;
+                    border-radius: 2px;
+                    transition: .1s linear all;
+
+                    &:hover{
+                        border-color: #cbcbcb;
+                    }
                     p{
                         width: 150px;
+                        color: #858585;
+                        font-weight: 500;
+                        font-size: .8rem;
                     }
                     .checkbox{
-                        height: 20px;
-                        width: 20px;
+                        height: 15px;
+                        width: 15px;
                         border: 1px solid #858585;
                         border-radius: 5px;
                         position: relative;
@@ -98,8 +110,8 @@
                         &.checked::after{
                             content: "";
                             position: absolute;
-                            height: 16px;
-                            width: 16px;
+                            height: 11px;
+                            width: 11px;
                             background-color: $main_pink;
                             border-radius: 2px;
                             top:2px;
