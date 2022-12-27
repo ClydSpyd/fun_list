@@ -7,13 +7,13 @@
         position: relative;
         height: 100%;
         left: -15px;
-        transition: .9s cubic-bezier(0.44,-0.34, 0.56, 1) all;
+        transition: .6s cubic-bezier(0.44,-0.34, 0.56, 1) all;
         box-sizing: border-box;
         padding: 20px 20px 20px 30px;
         
         &.open{
-            width: 400px;
-            // transition: .9s cubic-bezier(0.44,-0.34, 0.56, 1.49) all;
+            width: 300px;
+            // transition: .6s cubic-bezier(0.44,-0.34, 0.56, 1.49) all;
 
             .inner{
                 left: 0;
@@ -21,15 +21,15 @@
         }
         
         .inner{
-            width: 350px;
+            width: 245px;
             overflow: hidden;
             position: relative;
-            left: -400px;
-            transition: .9s cubic-bezier(0.44,-0.34, 0.56, 1) all;
+            left: -245px;
+            transition: .6s cubic-bezier(0.44,-0.34, 0.56, 1) all;
         }
 
         .title{
-            margin: 5px 0 10px 0;
+            margin: 5px 0 20px 0;
             padding-bottom: 5px;
             width: 100%;
             color: #858585;
@@ -65,6 +65,49 @@
             &.open{
                 transform: translateY(-50%)rotate(-180deg);
                 
+            }
+        }
+
+        .block{
+            margin-bottom: 20px;
+            margin-left: 30px;
+            .filter-title{
+                width: fit-content;
+                padding: 5px 2px;
+                margin-bottom: 10px;
+                font-weight: 500;
+                color: #858585;
+                border-bottom: 1px solid #858585;
+            }
+            .radios{
+                margin-left: 20px;
+                .filter-row{
+                    display: flex;
+                    height: 30px;
+                    cursor: pointer;
+                    p{
+                        width: 150px;
+                    }
+                    .checkbox{
+                        height: 20px;
+                        width: 20px;
+                        border: 1px solid #858585;
+                        border-radius: 5px;
+                        position: relative;
+
+                        &.checked::after{
+                            content: "";
+                            position: absolute;
+                            height: 16px;
+                            width: 16px;
+                            background-color: $main_pink;
+                            border-radius: 2px;
+                            top:2px;
+                            left: 2px;
+
+                        }
+                    }
+                }
             }
         }
     }

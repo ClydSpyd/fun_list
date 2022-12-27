@@ -2,7 +2,9 @@
 
 
 type ApiMethod = 'get' | 'post' | 'put';
-type ItemFilters = { submittedBy: string[]; complete: boolean[] };
+type ItemFilters = { [index: string]: any };
+// type ItemFilters = { [index: string]: boolean[] | string[] };
+// type ItemFilters = { submittedBy: string[]; complete: boolean[] };
 
 interface decodedCookie {
     _doc: any;

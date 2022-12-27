@@ -11,11 +11,12 @@ const queryClient = new QueryClient()
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+console.log('hello')
 root.render(
   <AuthContextProvider>
     <QueryClientProvider client={queryClient}>
       <App />
-  <ReactQueryDevtools initialIsOpen={true} />
+  {/* <ReactQueryDevtools initialIsOpen={true} /> */}
     </QueryClientProvider>
   </AuthContextProvider>
 );

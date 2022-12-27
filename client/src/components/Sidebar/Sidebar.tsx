@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect } from "react";
+import { useQuery } from "react-query";
 import { filterItems } from "../../config";
 import { useAuth } from "../../context/AuthContext";
+import { apiCall } from "../../utils/api";
+import { filterString } from "../../utils/filterStrings";
 import "./Sidebar.scss";
 
 type Props = {
@@ -17,15 +20,21 @@ const Sidebar = ({ query, filters, setFilters }: Props) => {
   useEffect(() => {
     toggleSidebar(isAuthenticated);
   }, [isAuthenticated]);
-  const doTheThing = (e: any) => {
+
+  const doTheThing = (key: string, value: string | boolean) => {
     let newValue;
-    if (filters.submittedBy.includes(e?.target?.value)) {
-      newValue = filters.submittedBy.filter((i) => i !== e.target.value);
+    if (filters[key].includes(value)) {
+      newValue = filters[key].filter((i:any) => i !== value);
     } else {
-      newValue = [...filters.submittedBy, e.target.value];
+      newValue = [...filters[key], value];
     }
-    setFilters({ ...filters, submittedBy: newValue });
+    setFilters({ ...filters, [key]: newValue });
   };
+  
+  const users = useQuery('users', async () => {
+    const { data } = await apiCall('get', `api/user/get_all`);
+    return data
+  })
 
   return (
     <div ref={sidebarRef} className={`sidebar ${sidebarOpen && "open"}`}>
@@ -37,25 +46,33 @@ const Sidebar = ({ query, filters, setFilters }: Props) => {
       </div>
       <div className="inner">
         <h5 className="title">Filter Items</h5>
-        {filterItems(query.data).map((item) => (
+        {users.data && filterItems(users.data.filter((i: User)=>i.userName!=='Babuz')).map((item) => (
           <div className="block">
             <p className="filter-title">{item.title}</p>
             <div className={`radios ${item.className}`}>
               {item.values.map((value) => (
+                <div onClick={(e) => doTheThing(item.key, value)} className="filter-row">
+                  <p>{filterString(String(value))}</p>
+                  <div className={`checkbox ${filters[item.key].includes(value) && 'checked'}`}></div>
+                </div>
+              ))}
+            </div>
+            {/* <div className={`radios ${item.className}`}>
+              {item.values.map((value) => (
                 <label>
                   <>
-                    {String(value)}
+                    {filterString(String(value))}
                     <input
-                      onClick={(e) => doTheThing(e)}
+                      onClick={(e) => doTheThing(item.key, value)}
                       type="checkbox"
                       name="submittedBy"
+                      checked={filters[item.key].includes(value)}
                       value={String(value)}
-                      checked={filters['submittedBy'].includes(value)}
                     />
                   </>
                 </label>
               ))}
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
@@ -64,36 +81,3 @@ const Sidebar = ({ query, filters, setFilters }: Props) => {
 };
 
 export default Sidebar;
-{
-  /* <div className="submittedBy">
-<label>
-  Dave
-  <input
-    onClick={(e) => doTheThing(e)}
-    type="checkbox"
-    name="submittedBy"
-    value={"Dave"}
-    checked={filters.submittedBy.includes("Dave")}
-  />
-</label>
-<label>
-  Lina
-  <input
-    onClick={(e) => doTheThing(e)}
-    type="checkbox"
-    name="submittedBy"
-    value={"Lina"}
-    checked={filters.submittedBy.includes("Lina")}
-  />
-</label>
-</div> */
-}
-
-
-// let newValue;
-// if (filters.submittedBy.includes(e?.target?.value)) {
-//   newValue = filters.submittedBy.filter((i) => i !== e.target.value);
-// } else {
-//   newValue = [...filters.submittedBy, e.target.value];
-// }
-// setFilters({ ...filters, submittedBy: newValue });

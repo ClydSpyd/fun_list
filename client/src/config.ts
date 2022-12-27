@@ -1,14 +1,16 @@
-export const filterItems = (data: Item[]) => [
+export const filterItems = (users: User[]) => [
   {
     title: "Submitted by",
-    className: 'submittedBy',
-    values: ['Dave', 'Lina'],
-    key: 'submittedBy'
+    className: "submittedBy",
+    values: users
+      ? [...new Set(users.map((i) => i.userName))]
+      : [],
+    key: "submittedBy",
   },
-  // {
-  //   title: 'Complete',
-  //   className: 'complete',
-  //   values: [true, false],
-  //   key: 'completed'
-  // }
+  {
+    title: "Complete",
+    className: "complete",
+    values: [true, false],
+    key: "complete",
+  },
 ];
