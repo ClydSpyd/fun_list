@@ -23,16 +23,16 @@ export const filterItems = () => [
     values: ['Dave', 'Lina'],
     key: "submittedBy",
   },
-  {
-    title: "Complete",
-    className: "complete",
-    values: [true, false],
-    key: "complete",
-  },
-  {
-    title: "Tags",
-    className: "tags",
-    values: itemTags,
-    key: "tags",
-  },
+  // {
+  //   title: "Complete",
+  //   className: "complete",
+  //   values: [true, false],
+  //   key: "complete",
+  // },
+  // {
+  //   title: "Tags",
+  //   className: "tags",
+  //   values: itemTags,
+  //   key: "tags",
+  // },
 ];

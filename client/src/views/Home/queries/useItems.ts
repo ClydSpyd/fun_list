@@ -15,6 +15,10 @@ export const useItems = (filters: ItemFilters) => {
     return Object.entries(filters).reduce((output, [key, value]) => {
       return output.filter((i) => {
         const filterKey = key === "submittedBy" ? i[key].userName : i[key];
+        console.log(i.title)
+        console.log(i[key].userName)
+        console.log(Array.isArray(filterKey) && filterKey.some((s:any) => value.includes(s)))
+        console.log(filterKey)
         return Array.isArray(filterKey)
           ? filterKey.some((r) => value.includes(r))
           : value.indexOf(filterKey as never) !== -1;
@@ -26,5 +30,6 @@ export const useItems = (filters: ItemFilters) => {
     onSuccess: (data) => console.log(data),
     select: (data) =>
       !Object.keys(appliedFilters).length ? data : handleFilters(data),
+      // !Object.keys(appliedFilters).length ? data : data,
   });
 };
