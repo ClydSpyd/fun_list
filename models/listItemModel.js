@@ -20,6 +20,10 @@ const ListItemSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  tags: {
+    type: [String],
+    default:[]
+  },
   submittedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',

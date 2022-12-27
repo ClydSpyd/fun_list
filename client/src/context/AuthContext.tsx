@@ -3,6 +3,7 @@ import { cookies } from "../utils/cookies";
 import jwt from "jwt-decode";
 import { apiCall } from "../utils/api";
 const tokenCookie = cookies.get("auth_token");
+const userCookie = cookies.get("user_data");
 
 interface Props {
   children?: ReactNode;
@@ -11,6 +12,7 @@ interface Props {
 const defaultData = {
   isAuthenticated: false,
   userId: null,
+  userData: null,
   loading: false,
   setIsAuthenticated: (): void => {},
   login: (): void => {},
@@ -22,15 +24,17 @@ export const AuthContextProvider = ({ children }: Props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!tokenCookie);
   const [loading, toggleLoading] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [userData, setUserData] = useState(JSON.parse(userCookie));
 
   useEffect(() => {
     if(tokenCookie){
       const decoded: decodedCookie = jwt(tokenCookie);
       setUserId(decoded._doc._id)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[tokenCookie])
  
-
+  console.log(JSON.parse(userCookie)) 
   const login = async (payload: any) => {
     toggleLoading(!loading)
     const { data } = await apiCall('post', 'api/auth/login', payload);
@@ -38,8 +42,10 @@ export const AuthContextProvider = ({ children }: Props) => {
     if (data.id) {
       console.log('data')
       setUserId(data.id);
+      setUserData(data);
       setIsAuthenticated(true);
       cookies.add('auth_token', data.token)
+      cookies.add('user_data', JSON.stringify(data))
     }
     toggleLoading(false);
     return data;
@@ -47,7 +53,7 @@ export const AuthContextProvider = ({ children }: Props) => {
   
   return (
     <AuthContext.Provider
-      value={{ userId, isAuthenticated, loading, setIsAuthenticated, login }}
+      value={{ userData, userId, isAuthenticated, loading, setIsAuthenticated, login }}
     >
       {children}
     </AuthContext.Provider>

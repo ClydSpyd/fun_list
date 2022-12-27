@@ -36,8 +36,8 @@ router.post('/create', [authMiddle,[
   
     const userId = req.userId
     console.log(userId);
-    const { title, description, link, imgLink } = req.body
-    const newItem = new ListItem({ title, description, link, imgLink, submittedBy: userId})
+    const { title, description, link, imgLink, tags } = req.body
+    const newItem = new ListItem({ title, description, link, imgLink, tags, submittedBy: userId})
     await newItem.save()
 
     res.json({msg:"success!", userId, id: newItem.id})

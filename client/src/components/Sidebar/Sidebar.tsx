@@ -46,7 +46,8 @@ const Sidebar = ({ query, filters, setFilters }: Props) => {
       </div>
       <div className="inner">
         <h5 className="title">Filter Items</h5>
-        {users.data && filterItems(users.data.filter((i: User)=>i.userName!=='Babuz')).map((item) => (
+        {users.data && filterItems(users.data).map((item) => (
+        // {users.data && filterItems(users.data.filter((i: User)=>i.userName!=='Babuz')).map((item) => (
           <div className="block">
             <p className="filter-title">{item.title}</p>
             <div className={`radios ${item.className}`}>

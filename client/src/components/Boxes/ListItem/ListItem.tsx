@@ -5,7 +5,6 @@ import { ImCross } from "react-icons/im";
 import { TiTick } from "react-icons/ti";
 import { FaRegEdit } from "react-icons/fa";
 import { useAuth } from "../../../context/AuthContext";
-import axios from "axios";
 import { useRef, useState } from "react";
 import { useOutsideClick } from "../../../utils/hooks/useOutsideClick";
 import spinner from "../../../assets/loading_roller.svg";
@@ -22,6 +21,7 @@ const ListItem = ({ item, query }: Props) => {
   const confRef = useRef<HTMLDivElement>(null);
   const { userId } = useAuth();
   const isMine = userId === item.submittedBy._id;
+  const complete = item.complete;
   const { refetch } = query;
 
   const handleDelete = async () => {
@@ -37,7 +37,10 @@ const ListItem = ({ item, query }: Props) => {
   });
 
   return (
-    <div className={`item ${isMine && "isMine"}`}>
+    <div className={`item ${isMine && "isMine"} ${complete && "complete"}`}>
+      <div className="complete-tick">
+        <TiTick />
+      </div>
       <div
         ref={confRef}
         className={`confirm-delete ${deleteState && "visible"}`}

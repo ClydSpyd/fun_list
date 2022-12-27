@@ -1,51 +1,76 @@
-import axios from 'axios';
-import { Formik } from 'formik';
-import { useState, useRef, useEffect, FormEvent } from 'react'
-import { apiCall } from '../../utils/api';
-import { useItems } from '../../views/Home/queries/useItems';
-import './NewItem.scss'
+import { Formik } from "formik";
+import { useState, useRef, useEffect, FormEvent } from "react";
+import { itemTags } from "../../config";
+import { apiCall } from "../../utils/api";
+import "./NewItem.scss";
 
 interface Props {
   query: any;
 }
 const initialValues = {
-  title: '',
-  description: '',
-  link: '',
-  imgLink: '',
+  title: "",
+  description: "",
+  link: "",
+  imgLink: "",
+  tags: [],
 };
 
 const NewItem = ({ query }: Props) => {
   const { refetch, isRefetching } = query;
-  const [ open, setOpen ] = useState(false)
-  const titleRef = useRef<HTMLInputElement|null>(null);
+  const [open, setOpen] = useState(false);
+  const [activeTags, setActiveTags] = useState<string[]>([]);
+  const [availableTags, setAvailableTags] = useState(itemTags);
+  const titleRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (open) titleRef.current?.focus();
   }, [open]);
 
+  const handleCancel = () => {
+    setOpen(false)
+    removeAllTags();
+  }
+  const handleTag = (tag: string) => {
+    console.log(tag);
+    if (activeTags.includes(tag)) {
+      setActiveTags([...activeTags.filter((i) => i !== tag)]);
+      setAvailableTags([...availableTags, tag]);
+    } else {
+      setActiveTags([...activeTags, tag]);
+      setAvailableTags([...availableTags.filter((i) => i !== tag)]);
+    }
+  };
+
+  const removeAllTags = () => {
+    setActiveTags([]);
+    setAvailableTags(itemTags);
+  };
+
   return (
-    <div className={`new-item-container ${open && 'open'}`}>
-        <div onClick={()=>setOpen(true)} className={`placeholder ${open && 'hidden'}`}>
-          <span>+</span>
-          Add new item
-        </div>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={()=>console.log('ö')}
-        >
-          {({ handleChange, values, resetForm }) =>{ 
-            const doTheThing = async (e: FormEvent<HTMLFormElement>) => {
-              e.preventDefault();
-              await apiCall('post', 'api/item/create', values);
-              resetForm();
-              refetch();
-              setOpen(false)
-            }
-            return (
-            <form className={`${open && 'open'}`} onSubmit={(e)=>doTheThing(e)}>
+    <div className={`new-item-container ${open && "open"}`}>
+      <div
+        onClick={() => setOpen(true)}
+        className={`placeholder ${open && "hidden"}`}
+      >
+        <span>+</span>
+        Add new item
+      </div>
+      <Formik initialValues={initialValues} onSubmit={() => console.log("ö")}>
+        {({ handleChange, values, resetForm }) => {
+          const doTheThing = async (e: FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            await apiCall("post", "api/item/create", {...values, tags: activeTags});
+            resetForm();
+            refetch();
+            setOpen(false);
+          };
+          return (
+            <form
+              className={`${open && "open"}`}
+              onSubmit={(e) => doTheThing(e)}
+            >
               <input
-              autoFocus
+                autoFocus
                 ref={titleRef}
                 placeholder="Title"
                 value={values.title}
@@ -63,6 +88,56 @@ const NewItem = ({ query }: Props) => {
                 id=""
               />
               <div className="row">
+                <div className="tags">
+                  <p className="title">Tags</p>
+                  <div className="active-tags">
+                    {activeTags.length === 0 ? (
+                      <p className="no-tags">Click tags to add to item</p>
+                    ) : (
+                      activeTags.map((tag) => (
+                        <div className="tag active">{tag}</div>
+                      ))
+                    )}
+                    {activeTags.length > 0 && (
+                      <div onClick={removeAllTags} className="remove-all">
+                        remove all
+                      </div>
+                    )}
+                  </div>
+                  <div className="available-tags">
+                    {availableTags.map((tag) => (
+                      <div onClick={() => handleTag(tag)} className="tag">
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="buttons">
+                <button
+                  onClick={handleCancel}
+                  className="cancel"
+                  type="submit"
+                >
+                  cancel
+                </button>
+                <button
+                  className={`go ${isRefetching && "loading"}`}
+                  type="submit"
+                />
+              </div>
+            </form>
+          );
+        }}
+      </Formik>
+    </div>
+  );
+};
+
+export default NewItem;
+
+{
+  /* <div className="row">
                 <input
                   placeholder="link"
                   value={values.link}
@@ -79,17 +154,5 @@ const NewItem = ({ query }: Props) => {
                   name="imgLink"
                   id=""
                 />
-              </div>
-              <div className="buttons">
-
-                <button onClick={()=> setOpen(false)} className='cancel' type="submit">cancel</button>
-                <button className={`go ${isRefetching && 'loading'}`} type="submit" />
-              </div>
-            </form>
-          )}}
-        </Formik>
-    </div>
-  );
+              </div> */
 }
-
-export default NewItem

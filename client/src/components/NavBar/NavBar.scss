@@ -6,6 +6,7 @@
     background-color: #E6E6E6;
     // border-bottom: 2px solid $main_orange;
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
     justify-content: space-between;
     padding: 0 10px;
@@ -24,6 +25,27 @@
         display: flex;
         position: relative;
         left: 10px;
+        margin-right: 20px;
+
+        .my-area{
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            p{
+                color: #ababab;
+                margin-left: 5px;
+            }
+
+            
+        }
+
+        img{
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            border: 3px solid #ababab;
+        }
 
         .nav-item{
            font-size: 16px;
@@ -49,16 +71,35 @@
         display: flex;
         align-items: center;
         justify-content: space-evenly;
+        width: 35px;
+        position: relative;
         
         svg{
             stroke-width: 3px;
+            position: absolute;
+            right: 11px;
+            // transform: rotate(180deg);
+        }
+
+        p{
+            color: white;
+            position: absolute;
+            right: 30px;
+            white-space: nowrap;
+            transition: .25s all ease-out;
+            opacity: 0;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
         &:hover{
             background-color:$main_red;
             // color: $main_orange;
             font-weight: 500;
-            // background-color: $main_pink;
+            width: 85px;
+            p{
+                opacity: 1;
+            }
         }
     }
 }

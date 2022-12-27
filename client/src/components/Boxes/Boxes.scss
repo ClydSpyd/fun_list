@@ -132,6 +132,24 @@
         position: relative;
         overflow: hidden;
 
+        .complete-tick{
+            display: none;
+        }
+
+        &.complete{
+
+            .complete-tick{
+                display: initial;
+                position: absolute;
+                left: 7px;
+
+                svg{
+                    height: 19px;
+                    width: 19px;
+                }
+            }
+        }
+
         .confirm-delete{
             position: absolute;
             background-color:#f3f3f3;

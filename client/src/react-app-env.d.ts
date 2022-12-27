@@ -2,9 +2,10 @@
 
 
 type ApiMethod = 'get' | 'post' | 'put';
+
+type Tags = 'Food' | 'Active' | 'Creative' | 'Culture' | 'Booze' | 'Outdoor' | 'Trip' | 'Exhibition' | 'Hike' | 'Road-trip' | 'Montaña' | 'Playa';
+
 type ItemFilters = { [index: string]: any };
-// type ItemFilters = { [index: string]: boolean[] | string[] };
-// type ItemFilters = { submittedBy: string[]; complete: boolean[] };
 
 interface decodedCookie {
     _doc: any;
@@ -13,6 +14,7 @@ interface decodedCookie {
 interface AuthContextObject {
     isAuthenticated: boolean;
     userId: any;
+    userData: User | null;
     loading: boolean;
     setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
     login:  Function;
@@ -21,8 +23,6 @@ interface AuthContextObject {
   type User = {
     _id: string,
     avatar: string,
-    data: string,
-    password: string,
     userName: string
   }
 
@@ -36,3 +36,8 @@ interface AuthContextObject {
     submittedBy: User,
     dateSubmitted: string,
   }
+
+
+  
+// type ItemFilters = { [index: string]: boolean[] | string[] };
+// type ItemFilters = { submittedBy: string[]; complete: boolean[] };
