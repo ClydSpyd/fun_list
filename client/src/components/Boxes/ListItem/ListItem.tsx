@@ -14,9 +14,10 @@ import { apiCall } from "../../../utils/api";
 type Props = {
   item: Item;
   query: any;
+  setEditItem: React.Dispatch<React.SetStateAction<Item | null>>
 };
 
-const ListItem = ({ item, query }: Props) => {
+const ListItem = ({ item, query, setEditItem }: Props) => {
   const [deleteState, setDeleteState] = useState(false);
   const [loading, toggleLoading] = useState(false);
   const confRef = useRef<HTMLDivElement>(null);
@@ -78,7 +79,7 @@ const ListItem = ({ item, query }: Props) => {
       <div className="right">
         {userId === item.submittedBy._id && (
           <div className="user-btns">
-            <div className="action-btn edit">
+            <div onClick={() => setEditItem(item)} className="action-btn edit">
               <FaRegEdit />
             </div>
             <div

@@ -1,14 +1,15 @@
-import './Boxes.scss'
-import ListItem from './ListItem/ListItem';
+import "./Boxes.scss";
+import ListItem from "./ListItem/ListItem";
 import loader from "../../assets/loading_roller.svg";
 
 interface Props {
-  query: any
+  query: any;
+  setEditItem: React.Dispatch<React.SetStateAction<Item | null>>;
 }
 
-const Boxes = ({ query }: Props) => {
+const Boxes = ({ query, setEditItem }: Props) => {
   const { error, data, isLoading } = query;
-
+  
   return (
     <div className="boxes-container">
       <div className="tabs-bar">
@@ -23,20 +24,26 @@ const Boxes = ({ query }: Props) => {
         </div>
         <div className="list">
           {isLoading ? (
-            <div className='loading-container'>
+            <div className="loading-container">
               <img src={loader} alt="spinner" />
               <h6>Loading list...</h6>
             </div>
           ) : error ? (
             <h6>ERROR</h6>
           ) : (
-            data?.map((i: Item) => <ListItem key={i._id} query={query} item={i} />
-            )
+            data?.map((i: Item) => (
+              <ListItem
+                key={i._id}
+                query={query}
+                item={i}
+                setEditItem={setEditItem}
+              />
+            ))
           )}
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Boxes;

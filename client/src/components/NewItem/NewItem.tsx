@@ -1,4 +1,4 @@
-import { Formik } from "formik";
+import { Formik, useFormikContext } from "formik";
 import { useState, useRef, useEffect, FormEvent } from "react";
 import { itemTags } from "../../config";
 import { apiCall } from "../../utils/api";
@@ -6,8 +6,10 @@ import "./NewItem.scss";
 
 interface Props {
   query: any;
+  editItem: Item | null;
 }
-const initialValues = {
+
+let initialValues = {
   title: "",
   description: "",
   link: "",
@@ -15,16 +17,25 @@ const initialValues = {
   tags: [],
 };
 
-const NewItem = ({ query }: Props) => {
+const NewItem = ({ query, editItem }: Props) => {
   const { refetch, isRefetching } = query;
   const [open, setOpen] = useState(false);
   const [activeTags, setActiveTags] = useState<string[]>([]);
   const [availableTags, setAvailableTags] = useState(itemTags);
   const titleRef = useRef<HTMLInputElement | null>(null);
+  const { setFieldValue } = useFormikContext()
 
   useEffect(() => {
     if (open) titleRef.current?.focus();
   }, [open]);
+
+  useEffect(() => {
+    if(editItem){
+      setOpen(true);
+      setFieldValue('title', 'hello world')
+      // initialValues.title = editItem.title;
+    }
+  },[editItem])
 
   const handleCancel = () => {
     setOpen(false)

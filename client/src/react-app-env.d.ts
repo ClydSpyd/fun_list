@@ -29,7 +29,7 @@ interface AuthContextObject {
   type Item = {
     _id: string,
     title: string,
-    decription: string,
+    description: string,
     link: string,
     tags: string[],
     imgLink: string,

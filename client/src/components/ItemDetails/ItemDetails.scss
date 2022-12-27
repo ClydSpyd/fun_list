@@ -1,0 +1,256 @@
+@import '../../styles/main.scss';
+
+.new-item-container{
+    flex-grow: 1;
+    border: 2px solid;
+    border-color: #e6e6e635;
+    background-color: #e6e6e67e;
+    max-height: 85px;
+    display: flex;
+    box-sizing: border-box;
+    padding: 15px;
+    border-radius: 6px;
+    position: relative;
+    transition: .5s ease-in-out all;
+    height: fit-content;
+    &.open{
+        max-height: 850px;
+    }
+
+    .placeholder{
+        font-size: 1.5rem;
+        color: #cbcbcb;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        top: 17px;
+        left: 15px;
+        width: calc(100% - 30px);
+        border-radius: 3px;
+        box-sizing: border-box;
+        padding: 3px 10px;
+        cursor: text;
+        border:1px solid #cbcbcb;
+        // transform: translateY(-50%);
+        transition: .3s ease-in-out all;
+
+        &:hover{
+            border-color: $main_pink;
+            background-color: #ffffff;
+        }
+
+        span{
+            font-size: 2rem;
+            margin-right: 8px;
+        }
+
+        &.hidden{
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+    
+    
+    form{
+        position: relative;
+        width: 100%;
+        opacity: 0;
+        pointer-events: none;
+        transition: .3s ease-in-out all;
+
+        &.open{
+            pointer-events: all;
+            opacity: 1;
+        }
+        input{
+            width: 100%;
+            height: 45px;
+            margin:5px;
+            outline: none;
+            border: 1px solid rgb(214, 214, 214);
+            padding: 15px 5px;
+            box-sizing: border-box;
+            &:focus{
+                border:1px solid $main_orange;
+            }
+        }
+
+        .row{
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            input{
+                width: 50%;
+            }
+        }
+
+        .tags{
+            width: 100%;
+            margin: 5px;
+
+            p.title{
+                color: #757575;
+                font-size: .9rem;
+                margin: 0;
+            }
+
+            .active-tags, 
+            .available-tags{
+                display: flex;
+                flex-wrap: wrap;
+                margin: 10px 0;
+            }
+            .active-tags{
+                margin: 5px 0;
+            }
+
+            .active-tags{
+                min-height: 60px;
+                width: 100%;
+                border: 1px solid rgb(214, 214, 214);
+                background-color: #ffffff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+
+                p{
+                    color: #757575;
+                    font-weight: 500;
+                    font-size: .8rem;
+                    position: relative;
+                }
+
+                .remove-all{
+                    position: absolute;
+                    right:10px;
+                    bottom: 5px;
+                    font-size: .8rem;
+
+                    background-color: #cbcbcb;
+                    border-radius: 15px;
+                    padding: 2px 10px 3px 10px;
+                    color: white;
+                    cursor: pointer;
+                    transition: .3s linear all;
+
+                    &:hover{
+                        background-color: #858585;
+                    }
+                }
+            }
+
+            .tag{
+                font-size: .9rem;
+                padding: 2px 8px 3px 8px;
+                border-radius: 20px;
+                background-color: $main_pink;
+                border: 1px solid $main_pink;
+                color: #ffffff;
+                margin-right: 5px;
+                cursor: pointer;
+                transition: .3s linear all;
+                opacity: .4;
+                position: relative;
+
+                &:hover{
+                    opacity: 1;
+                }
+
+                &.active{
+                    opacity: 1;
+                    padding-right: 20px;
+                    &:after{
+                        content: "x";
+                        font-weight: 700;
+                        position: absolute;
+                        right: 5px;
+                        top: 1px;
+                        color: $main_pink;
+                    }
+                    &:before{
+                        content: "";
+                        height: 15px;
+                        width: 15px;
+                        border-radius: 50%;
+                        background-color: white;
+                        position: absolute;
+                        right: 2px;
+                        top: 4px;
+                        color: white;
+                    }
+                }
+
+                &:hover{
+                    opacity: 1;
+                }
+            }
+        }
+
+        .buttons{
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        button{
+            height: 30px;
+            width: 50px;
+            background-color: $main_pink;
+            color: #ffffff;
+            transition: .25s all ease-out;
+            border-radius: 3px;
+            position: relative;
+            font-size: 11px;
+
+            &:hover{
+                background-color: $main_orange;
+
+            }
+
+            &.go{
+
+                &::after{
+                    position: absolute;
+                    content: "GO" ;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height:20px;
+                    width: 20px;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+                &:hover{
+                    background-color: $main_orange;
+    
+                }
+    
+                &.loading{
+                    background:no-repeat center, $main_pink;
+                    background-size: 30px;
+                    &::after{
+                        background:url(../../assets/spinner.svg) no-repeat center;
+                        content: '';
+                        background-size: 30px;
+                    }
+                }
+            }
+
+            &.cancel{
+                margin-right: 5px;
+                font-weight: 500;
+                font-size: 11px;
+                color: $main_red;
+                background-color: #ffffff;
+                border:1px solid $main_red;
+
+                &:hover{
+                    background-color: $main_red;
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+}
