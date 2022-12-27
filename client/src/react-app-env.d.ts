@@ -31,6 +31,7 @@ interface AuthContextObject {
     title: string,
     decription: string,
     link: string,
+    tags: string[],
     imgLink: string,
     complete: boolean,
     submittedBy: User,

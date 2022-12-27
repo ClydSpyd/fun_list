@@ -57,9 +57,10 @@ const NewItem = ({ query }: Props) => {
       </div>
       <Formik initialValues={initialValues} onSubmit={() => console.log("ö")}>
         {({ handleChange, values, resetForm }) => {
-          const doTheThing = async (e: FormEvent<HTMLFormElement>) => {
+          const handleSublit = async (e: FormEvent<HTMLFormElement>) => {
             e.preventDefault();
             await apiCall("post", "api/item/create", {...values, tags: activeTags});
+            removeAllTags();
             resetForm();
             refetch();
             setOpen(false);
@@ -67,7 +68,7 @@ const NewItem = ({ query }: Props) => {
           return (
             <form
               className={`${open && "open"}`}
-              onSubmit={(e) => doTheThing(e)}
+              onSubmit={(e) => handleSublit(e)}
             >
               <input
                 autoFocus
@@ -95,7 +96,7 @@ const NewItem = ({ query }: Props) => {
                       <p className="no-tags">Click tags to add to item</p>
                     ) : (
                       activeTags.map((tag) => (
-                        <div className="tag active">{tag}</div>
+                        <div onClick={()=>handleTag(tag)} className="tag active">{tag}</div>
                       ))
                     )}
                     {activeTags.length > 0 && (

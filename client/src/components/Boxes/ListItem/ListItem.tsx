@@ -2,6 +2,7 @@ import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { ImCross } from "react-icons/im";
+import { IoMdPricetag } from "react-icons/io";
 import { TiTick } from "react-icons/ti";
 import { FaRegEdit } from "react-icons/fa";
 import { useAuth } from "../../../context/AuthContext";
@@ -70,6 +71,9 @@ const ListItem = ({ item, query }: Props) => {
       <div className="left">
         <GiPerspectiveDiceSixFacesRandom color="#F58634" />
         <h4>{item.title}</h4>
+        <div className="tags">
+          { item.tags.map(tag => <div className={'tag'}><IoMdPricetag /> {tag}</div>)}
+        </div>
       </div>
       <div className="right">
         {userId === item.submittedBy._id && (

@@ -1,8 +1,8 @@
-export const filterItems = (users: User[]) => [
+export const filterItems = () => [
   {
     title: "Submitted by",
     className: "submittedBy",
-    values: users ? [...new Set(users.map((i) => i.userName))] : [],
+    values: ['Dave', 'Lina'],
     key: "submittedBy",
   },
   {
@@ -20,6 +20,7 @@ export const itemTags = [
   "Active",
   "Outdoor",
   "Creative",
+  "Baloo",
   "Exhibition",
   "Restaurant",
   "Bar",
