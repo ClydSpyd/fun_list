@@ -14,8 +14,10 @@ export const useItems = (filters: ItemFilters) => {
   const handleFilters = (data: any[]) => {
     return Object.entries(filters).reduce((output, [key, value]) => {
         return output.filter(i => {
-            const filterKey = key === 'submittedBy' ? i[key].userName : i[key];
-            return value.indexOf(filterKey as never) !== -1}
+          console.log(value)
+          const filterKey = key === 'submittedBy' ? i[key].userName : i[key];
+          console.log(filterKey)
+             return Array.isArray(filterKey) ? filterKey.some(r=> value.includes(r)) : value.indexOf(filterKey as never) !== -1}
         );
       }, data);
   };

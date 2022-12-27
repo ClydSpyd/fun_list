@@ -34,7 +34,6 @@ export const AuthContextProvider = ({ children }: Props) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[tokenCookie])
  
-  console.log(JSON.parse(userCookie)) 
   const login = async (payload: any) => {
     toggleLoading(!loading)
     const { data } = await apiCall('post', 'api/auth/login', payload);

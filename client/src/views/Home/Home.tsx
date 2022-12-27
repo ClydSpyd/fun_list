@@ -5,9 +5,10 @@ import { useAuth } from '../../context/AuthContext';
 import { useState } from 'react';
 import './Home.scss';
 import { useItems } from './queries/useItems';
+import { itemTags } from '../../config';
 
 const Home = () => {
-  const [ filters, setFilters ] = useState<ItemFilters>({submittedBy: ['Dave', 'Lina'], complete: [true, false]})
+  const [ filters, setFilters ] = useState<ItemFilters>({submittedBy: ['Dave', 'Lina'], complete: [true, false], tags: itemTags})
   const { isAuthenticated } = useAuth();
   const query = useItems(filters)
 

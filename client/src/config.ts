@@ -1,17 +1,3 @@
-export const filterItems = () => [
-  {
-    title: "Submitted by",
-    className: "submittedBy",
-    values: ['Dave', 'Lina'],
-    key: "submittedBy",
-  },
-  {
-    title: "Complete",
-    className: "complete",
-    values: [true, false],
-    key: "complete",
-  },
-];
 
 export const itemTags = [
   "Culture",
@@ -28,4 +14,25 @@ export const itemTags = [
   "Road-trip",
   "Montaña",
   "Playa",
+];
+
+export const filterItems = () => [
+  {
+    title: "Submitted by",
+    className: "submittedBy",
+    values: ['Dave', 'Lina'],
+    key: "submittedBy",
+  },
+  {
+    title: "Complete",
+    className: "complete",
+    values: [true, false],
+    key: "complete",
+  },
+  {
+    title: "Tags",
+    className: "tags",
+    values: itemTags,
+    key: "tags",
+  },
 ];
