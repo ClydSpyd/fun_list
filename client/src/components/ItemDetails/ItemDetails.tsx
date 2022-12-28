@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { Formik } from "formik";
+import { Formik, FormikHelpers, FormikValues } from "formik";
 import { apiCall } from "../../utils/api";
 import { itemTags } from "../../config";
 import DetailsForm from "./DetailsForm";
@@ -28,7 +28,6 @@ const ItemDetails = ({ query, editItem, setEditItem }: Props) => {
     tag: string,
     obj: { available: string[]; active: string[] }
   ) => {
-    console.log(obj);
     if (obj) {
       setActiveTags([...obj.active]);
       setAvailableTags([...obj.available]);
@@ -46,33 +45,35 @@ const ItemDetails = ({ query, editItem, setEditItem }: Props) => {
     setAvailableTags(itemTags);
   };
 
+  const URL = editItem
+  ? `api/item/edit/${editItem._id}`
+  : "api/item/create";
+  
+  //@ts-ignore
+  const handleSubmit = async (values, { resetForm }) => {
+    console.log('HELLO')
+    console.log(activeTags)
+    console.log(values)
+    await apiCall("post", URL, {
+      ...values,
+      tags: activeTags,
+    });
+    removeAllTags();
+    refetch();
+    resetForm();
+    setOpen(false);
+    setEditItem(null);
+  }
+
   return (
-    <Formik initialValues={initialValues} onSubmit={() => console.log("ö")}>
-      {({ handleChange, values, resetForm, setValues }) => {
-        const handleSublit = async (e: FormEvent<HTMLFormElement>) => {
-          e.preventDefault();
-          const URL = editItem
-            ? `api/item/edit/${editItem._id}`
-            : "api/item/create";
-          console.log(editItem);
-          console.log(URL);
-          console.log(availableTags);
-          await apiCall("post", URL, {
-            ...values,
-            tags: activeTags,
-          });
-          removeAllTags();
-          resetForm();
-          refetch();
-          setOpen(false);
-          setEditItem(null);
-        };
+    <Formik 
+      initialValues={initialValues} 
+      onSubmit={handleSubmit}>
+      {(formikProps) => {
         return (
           <DetailsForm
-            values={values}
+            formikProps={formikProps}
             setEditItem={setEditItem}
-            handleChange={handleChange}
-            handleSubmit={handleSublit}
             handleTag={handleTag}
             query={query}
             removeAllTags={removeAllTags}
@@ -80,7 +81,6 @@ const ItemDetails = ({ query, editItem, setEditItem }: Props) => {
             availableTags={availableTags}
             open={open}
             setOpen={setOpen}
-            setValues={setValues}
             editItem={editItem}
           />
         );

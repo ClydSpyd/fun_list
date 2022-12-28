@@ -4,15 +4,12 @@ import { FaRegEdit } from "react-icons/fa";
 import { itemTags } from "../../config";
 
 interface Props {
-  values: any;
-  handleSubmit: any;
-  handleChange: any;
+  formikProps: any;
   handleTag: any;
   removeAllTags: any;
   query: any;
   availableTags: any;
   activeTags: any;
-  setValues: any;
   setOpen: any;
   editItem: any;
   setEditItem: React.Dispatch<React.SetStateAction<Item | null>>;
@@ -20,43 +17,48 @@ interface Props {
 }
 
 const DetailsForm = ({
+  formikProps,
   open,
   setOpen,
-  values,
-  handleSubmit,
-  handleChange,
   handleTag,
   removeAllTags,
   setEditItem,
   availableTags,
   activeTags,
   editItem,
-  setValues,
   query,
 }: Props) => {
   const { isRefetching, isLoading } = query;
   const titleRef = useRef<HTMLInputElement | null>(null);
 
+  const { 
+    handleChange, 
+    values, 
+    resetForm, 
+    setValues, 
+    handleSubmit 
+  } = formikProps;
+
   useEffect(() => {
     if (editItem) {
       setOpen(true);
       setValues(editItem);
-      const available = itemTags.filter(i => editItem.tags.indexOf(i) === -1);
-      handleTag('', { available, active: [...editItem.tags]})
+      const available = itemTags.filter((i) => editItem.tags.indexOf(i) === -1);
+      handleTag("", { available, active: [...editItem.tags] });
     }
   }, [editItem]);
-  
-  const handleCancel = (e:any) => {
+
+  const handleCancel = (e: any) => {
     e.preventDefault();
-    console.log('cancel')
+    console.log("cancel");
     setOpen(false);
     removeAllTags();
-    setEditItem(null)
+    setEditItem(null);
   };
 
   useEffect(() => {
-    if(open) titleRef?.current?.focus();
-  }, [open])
+    if (open) titleRef?.current?.focus();
+  }, [open]);
 
   return (
     <div
@@ -75,9 +77,8 @@ const DetailsForm = ({
         <h4>Editing</h4>
         <FaRegEdit />
       </div>
-      <form className={`${open && "open"}`} onSubmit={(e) => handleSubmit(e)}>
+      <form className={`${open && "open"}`} onKeyDown={e=>{console.log(e.key);if(e.key==="Enter")return e.preventDefault()}} onSubmit={handleSubmit}>
         <input
-          autoFocus
           ref={titleRef}
           placeholder="Title"
           value={values.title}
@@ -123,10 +124,15 @@ const DetailsForm = ({
           </div>
         </div>
         <div className="buttons">
-          <button onClick={e=>handleCancel(e)} className="cancel">
+          <button onClick={(e) => handleCancel(e)} className="cancel">
             cancel
           </button>
-          <button className={`go ${isRefetching | isLoading && "loading"} ${editItem && "save"}`} type="submit" />
+          <button
+            className={`go ${isRefetching | isLoading && "loading"} ${
+              editItem && "save"
+            }`}
+            type="submit"
+          />
         </div>
       </form>
     </div>
