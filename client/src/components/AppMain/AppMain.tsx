@@ -16,7 +16,7 @@ const AppMain = () => {
     complete: [true, false],
     tags: itemTags,
   });
-  const [viewModal, toggleModal] = useState(true);
+  const [viewModal, toggleModal] = useState<boolean>(false);
   const [editItem, setEditItem] = useState<null | Item>(null);
   const query = useItems(filters);
   const { isAuthenticated } = useAuth();

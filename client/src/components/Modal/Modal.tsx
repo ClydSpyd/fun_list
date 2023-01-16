@@ -30,7 +30,7 @@ const Modal = ({ toggleModal, items }: Props) => {
 
   const startRandomizer = () => {
     setRandomizeState('running')
-    const interval = setInterval(changeItem, 100);
+    const interval = setInterval(changeItem, 150);
     audioRef.current && audioRef.current.play();
     setTimeout(() => {
       clearInterval(interval);
@@ -66,7 +66,14 @@ const Modal = ({ toggleModal, items }: Props) => {
               readOnly
             />
           </div>
-        )}
+        )
+      }
+      {
+        randomizeState === 'post' &&
+        <div className="go-again" onClick={startRandomizer}>
+          <h5>Go again</h5>
+        </div>
+      }
       </div>
     </div>
   );
