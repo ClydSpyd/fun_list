@@ -103,7 +103,7 @@ const DetailsForm = ({
                 <p className="no-tags">Click tags to add to item</p>
               ) : (
                 activeTags.map((tag: string) => (
-                  <div onClick={() => handleTag(tag)} className="tag active">
+                  <div key={tag} onClick={() => handleTag(tag)} className="tag active">
                     {tag}
                   </div>
                 ))
@@ -116,7 +116,7 @@ const DetailsForm = ({
             </div>
             <div className="available-tags">
               {availableTags.map((tag: string) => (
-                <div onClick={() => handleTag(tag)} className="tag">
+                <div key={tag} onClick={() => handleTag(tag)} className="tag">
                   {tag}
                 </div>
               ))}

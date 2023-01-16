@@ -1,0 +1,36 @@
+@import '../../styles/main.scss';
+
+.app-main {
+    width: 100%;
+    height: 100%;
+    margin: 0px auto;
+    opacity: 0;
+    pointer-events: none;
+    position: relative;
+    transition: $main_transition ease-out opacity;
+
+    &.loggedIn {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .app-inner {
+        height: calc(100vh - 50px);
+        width: 100vw;
+        overflow: hidden;
+        position: relative;
+        border: 3px solid #ffffff;
+        display: flex;
+
+        .container {
+            height: 100%;
+            display: flex;
+            flex-grow: 1;
+            position: relative;
+            left: -10px;
+            flex-direction: column;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+    }
+}

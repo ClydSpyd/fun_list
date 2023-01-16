@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { apiCall } from "../../../utils/api";
+import { apiCall } from "../api";
 
 const getItems = async () => {
   const { data } = await apiCall("get", `api/item/get_all`);

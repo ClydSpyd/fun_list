@@ -1,5 +1,5 @@
-import { useState, FormEvent } from "react";
-import { Formik, FormikHelpers, FormikValues } from "formik";
+import { useState } from "react";
+import { Formik } from "formik";
 import { apiCall } from "../../utils/api";
 import { itemTags } from "../../config";
 import DetailsForm from "./DetailsForm";
@@ -51,9 +51,6 @@ const ItemDetails = ({ query, editItem, setEditItem }: Props) => {
   
   //@ts-ignore
   const handleSubmit = async (values, { resetForm }) => {
-    console.log('HELLO')
-    console.log(activeTags)
-    console.log(values)
     await apiCall("post", URL, {
       ...values,
       tags: activeTags,

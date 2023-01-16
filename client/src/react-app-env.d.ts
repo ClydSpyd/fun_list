@@ -1,5 +1,5 @@
 /// <reference types="react-scripts" />
-
+declare module '*.mp3';
 
 type ApiMethod = 'get' | 'post' | 'put';
 

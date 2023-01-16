@@ -3,7 +3,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import { useAuth } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
 import "./Home.scss";
-import { useItems } from "./queries/useItems";
+import { useItems } from "../../utils/queries/useItems";
 import { itemTags } from "../../config";
 import ItemDetails from "../../components/ItemDetails/ItemDetails";
 

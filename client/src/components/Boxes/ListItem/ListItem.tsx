@@ -10,22 +10,39 @@ import { useRef, useState } from "react";
 import { useOutsideClick } from "../../../utils/hooks/useOutsideClick";
 import spinner from "../../../assets/loading_roller.svg";
 import { apiCall } from "../../../utils/api";
+import './ListItem.scss';
 
 type Props = {
   item: Item;
-  query: any;
-  setEditItem: React.Dispatch<React.SetStateAction<Item | null>>;
-  editItem: Item | null;
+  refetch?: any;
+  setEditItem?: React.Dispatch<React.SetStateAction<Item | null>>;
+  isEditing?: boolean | null;
+  readOnly?: boolean;
 };
 
-const ListItem = ({ item, query, setEditItem, editItem }: Props) => {
+type TagsProps = {
+  item: Item;
+}
+
+const Tags = ({ item }: TagsProps) => {
+  return (
+    <div className="tags">
+      {item.tags.map((tag) => (
+        <div className={"tag"}>
+          <IoMdPricetag /> {tag}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+const ListItem = ({ item, refetch, setEditItem, isEditing, readOnly }: Props) => {
   const [deleteState, setDeleteState] = useState(false);
   const [loading, toggleLoading] = useState(false);
   const confRef = useRef<HTMLDivElement>(null);
   const { userId } = useAuth();
   const isMine = userId === item.submittedBy._id;
   const complete = item.complete;
-  const { refetch } = query;
 
   const handleDelete = async () => {
     toggleLoading(true);
@@ -40,7 +57,11 @@ const ListItem = ({ item, query, setEditItem, editItem }: Props) => {
   });
 
   return (
-    <div className={`item ${isMine && "isMine"} ${complete && "complete"} ${(editItem && editItem._id === item._id) && 'editing'}`}>
+    <div
+      className={`item ${isMine && "isMine"} ${complete && "complete"} ${
+        isEditing && "editing"
+      } ${readOnly && "readOnly"}`}
+    >
       <div className="complete-tick">
         <TiTick />
       </div>
@@ -71,28 +92,41 @@ const ListItem = ({ item, query, setEditItem, editItem }: Props) => {
         </div>
       </div>
       <div className="left">
-        <GiPerspectiveDiceSixFacesRandom color="#F58634" />
-        <h4>{item.title}</h4>
-        <div className="tags">
-          { item.tags.map(tag => <div className={'tag'}><IoMdPricetag /> {tag}</div>)}
-        </div>
-      </div>
-      <div className="right">
-        {userId === item.submittedBy._id && (
-          <div className="user-btns">
-            <div onClick={() => setEditItem(item)} className="action-btn edit">
-              <FaRegEdit />
-            </div>
-            <div
-              onClick={() => setDeleteState(true)}
-              className="action-btn delete"
-            >
-              <MdOutlineDeleteForever />
-            </div>
-          </div>
+        {!readOnly ? (
+          <GiPerspectiveDiceSixFacesRandom color="#F58634" />
+        ) : (
+          <img src={item.submittedBy.avatar} alt="" />
         )}
-        <img src={item.submittedBy.avatar} alt="" />
+        <h4>{item.title}</h4>
+        {!readOnly && <Tags item={item} />}
       </div>
+      {!readOnly && (
+        <div className="right">
+          {userId === item.submittedBy._id && !readOnly && (
+            <div className="user-btns">
+              <div
+                onClick={() => setEditItem && setEditItem(item)}
+                className="action-btn edit"
+              >
+                <FaRegEdit />
+              </div>
+              <div
+                onClick={() => setDeleteState(true)}
+                className="action-btn delete"
+              >
+                <MdOutlineDeleteForever />
+              </div>
+            </div>
+          )}
+          <img src={item.submittedBy.avatar} alt="" />
+        </div>
+      )}
+      {
+        readOnly &&
+          <div className="bottom">
+            <Tags item={item} />
+          </div>
+      }
     </div>
   );
 };

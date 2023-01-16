@@ -35,10 +35,10 @@ const Boxes = ({ query, setEditItem, editItem }: Props) => {
             data?.map((i: Item) => (
               <ListItem
                 key={i._id}
-                query={query}
                 item={i}
+                refetch={query.refetch}
                 setEditItem={setEditItem}
-                editItem={editItem}
+                isEditing={editItem && editItem._id === i._id}
               />
             ))
           )}

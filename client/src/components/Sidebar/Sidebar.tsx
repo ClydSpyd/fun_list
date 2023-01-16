@@ -5,8 +5,9 @@ import { useAuth } from "../../context/AuthContext";
 import { apiCall } from "../../utils/api";
 import { filterString } from "../../utils/filterStrings";
 import { HiUser } from "react-icons/hi";
+import { TiTick } from "react-icons/ti";
+import { IoMdPricetag } from "react-icons/io";
 import "./Sidebar.scss";
-import { filterCategoryItem } from "../../utils/filterCategoryIcon";
 
 type Props = {
   query: any;
@@ -23,7 +24,10 @@ const Sidebar = ({ query, filters, setFilters }: Props) => {
     toggleSidebar(isAuthenticated);
   }, [isAuthenticated]);
 
-  const doTheThing = (key: string, value: string | boolean) => {
+  const doTheThing = (key: string, value: string | boolean | []) => {
+    if(Array.isArray(value)){
+      return setFilters({ ...filters, [key]: [] });
+    }
     let newValue;
     if (filters[key].includes(value)) {
       newValue = filters[key].filter((i:any) => i !== value);
@@ -48,15 +52,16 @@ const Sidebar = ({ query, filters, setFilters }: Props) => {
       </div>
       <div className="inner">
         <h5 className="title">Filter Items</h5>
-        {users.data && filterItems().map((item) => (
-          <div className="block">
-            <>
-            {filterCategoryItem('user')}
+        {users.data && filterItems().map((item, idx) => (
+          <div key={idx} className="block">
+            <div className="title-row">
+            {idx === 0 ? <HiUser/> : idx === 1 ? <TiTick/> : <IoMdPricetag />}
             <p className="filter-title"> {item.title}</p>
-            </>
+            <div onClick={(e) => doTheThing(item.key, [])} className="clear-all">Clear all</div>
+            </div>
             <div className={`radios ${item.className}`}>
-              {item.values.map((value) => (
-                <div onClick={(e) => doTheThing(item.key, value)} className="filter-row">
+              {item.values.map((value, idx) => (
+                <div key={idx} onClick={(e) => doTheThing(item.key, value)} className="filter-row">
                   <p>{filterString(String(value))}</p>
                   <div className={`checkbox ${filters[item.key].includes(value) && 'checked'}`}></div>
                 </div>
